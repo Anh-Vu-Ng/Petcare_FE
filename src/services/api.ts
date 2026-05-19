@@ -1,6 +1,6 @@
 import { ChatRequest, ChatResponse, Message } from '../types/chat';
 
-const API_BASE_URL = 'http://localhost:8000'; // Update this when backend is ready
+const API_BASE_URL = process.env.BACKEND_API_URL || 'http://localhost:8000';
 
 export const chatApi = {
   async sendMessage(request: ChatRequest): Promise<ChatResponse> {
@@ -30,7 +30,7 @@ export const chatApi = {
   async getHistory(sessionId: string): Promise<Message[]> {
     try {
       const response = await fetch(`${API_BASE_URL}/api/chat/history/${sessionId}`);
-      
+
       if (!response.ok) {
         if (response.status === 404) return [];
         throw new Error(`API error: ${response.statusText}`);
