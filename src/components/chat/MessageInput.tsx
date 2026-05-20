@@ -1,6 +1,6 @@
 import React, { useState, useRef, KeyboardEvent } from 'react';
-import { Send } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { SendHorizontal } from 'lucide-react';
+import { cn } from '../ui/Button';
 
 interface MessageInputProps {
   onSendMessage: (message: string) => void;
@@ -46,32 +46,40 @@ export function MessageInput({ onSendMessage, isLoading }: MessageInputProps) {
   };
 
   return (
-    <div className="p-4 bg-white border-t border-gray-100 shadow-[0_-5px_15px_-15px_rgba(0,0,0,0.1)] relative z-10 rounded-b-2xl">
-      <div className="flex items-end gap-2 max-w-4xl mx-auto">
-        <div className="relative flex-1 bg-gray-50 rounded-2xl border border-gray-200 focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-400/20 transition-all shadow-inner overflow-hidden">
+    <div className="p-4 bg-white border-t border-slate-100 relative z-10 w-full">
+      <div className="w-full relative">
+        {/* Glowing RGB Neon border capsule (White background inner) */}
+        <div className="relative flex items-end bg-white rgb-neon-border rounded-3xl p-2 pl-4 pr-3 shadow-md">
           <textarea
             ref={textareaRef}
             value={content}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
             placeholder="Hỏi về cách chăm sóc thú cưng của bạn..."
-            className="w-full max-h-[150px] min-h-[50px] py-3 pl-4 pr-12 bg-transparent resize-none focus:outline-none scrollbar-thin overflow-y-auto text-gray-700 leading-relaxed"
+            className="flex-1 max-h-[150px] min-h-[40px] py-2 bg-transparent resize-none focus:outline-none overflow-y-auto text-slate-800 placeholder-slate-400 text-sm sm:text-base leading-relaxed scrollbar-none"
             rows={1}
             disabled={isLoading}
           />
+          
+          {/* Action icons row inside input capsule */}
+          <div className="flex items-center h-10 ml-2">
+            <button
+              onClick={handleSend}
+              disabled={!content.trim() || isLoading}
+              className={cn(
+                "p-2 rounded-full transition-all duration-300 active:scale-90 flex-shrink-0 cursor-pointer",
+                content.trim() && !isLoading
+                  ? "bg-gradient-to-tr from-teal-500 to-blue-500 text-white shadow-md shadow-teal-500/10 hover:brightness-110"
+                  : "bg-slate-100 text-slate-300 disabled:cursor-not-allowed"
+              )}
+            >
+              <SendHorizontal size={18} />
+            </button>
+          </div>
         </div>
-
-        <Button
-          onClick={handleSend}
-          disabled={!content.trim() || isLoading}
-          variant="icon"
-          className="h-12 w-12 rounded-full bg-teal-500 hover:bg-teal-600 disabled:bg-gray-300 disabled:opacity-70 transition-transform active:scale-95 shadow-md flex-shrink-0"
-        >
-          <Send size={20} className={content.trim() && !isLoading ? "text-white" : "text-gray-100"} />
-        </Button>
       </div>
-      <div className="text-center mt-2 text-xs text-gray-400">
-        Petcare RAG có thể mắc lỗi. Vui lòng kiểm tra lại các thông tin quan trọng.
+      <div className="text-center mt-2 text-[10px] text-slate-400 tracking-wide select-none">
+        Petcare RAG có thể đưa ra thông tin không chính xác. Hãy cân nhắc kiểm chứng thông tin y tế quan trọng.
       </div>
     </div>
   );

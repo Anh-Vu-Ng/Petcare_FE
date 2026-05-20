@@ -27,14 +27,6 @@ export function useChat() {
         const history = await chatApi.getHistory(sid);
         if (history && history.length > 0) {
           setMessages(history);
-        } else {
-          // Add a welcome message if empty
-          setMessages([{
-            id: 'welcome',
-            role: 'assistant',
-            content: 'Xin chào! Tôi là trợ lý ảo Petcare RAG. Bạn cần tư vấn thông tin gì về thú cưng hôm nay?',
-            timestamp: Date.now()
-          }]);
         }
         setIsLoading(false);
       }
