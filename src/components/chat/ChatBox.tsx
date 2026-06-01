@@ -12,28 +12,28 @@ export function ChatBox() {
 
   const suggestions = [
     {
-      title: "Chế độ dinh dưỡng",
-      desc: "Chế độ ăn phù hợp cho mèo con dưới 3 tháng tuổi là gì?",
+      title: "Địa chỉ",
+      desc: "Địa chỉ cửa hàng Petcare ở đâu",
       icon: <HeartPulse size={20} className="text-teal-500" />,
-      prompt: "Chế độ ăn phù hợp cho mèo con dưới 3 tháng tuổi là gì?"
+      prompt: "Địa chỉ cửa hàng Petcare ở đâu?"
     },
     {
-      title: "Triệu chứng & Bệnh",
-      desc: "Làm sao để nhận biết mèo bị stress hoặc trầm cảm?",
+      title: "Liên hệ",
+      desc: "Có thể liên hệ với Petcare qua những kênh nào?",
       icon: <ShieldAlert size={20} className="text-amber-500" />,
-      prompt: "Làm sao để nhận biết mèo bị stress hoặc trầm cảm?"
+      prompt: "Có thể liên hệ với Petcare qua những kênh nào?"
     },
     {
-      title: "Lịch tiêm phòng",
-      desc: "Lịch tiêm phòng định kỳ cho chó gồm những mũi nào?",
+      title: "Dịch vụ làm đẹp",
+      desc: "Tư vấn các dịch vụ làm đẹp cho pet có giá tham khảo ",
       icon: <Syringe size={20} className="text-blue-500" />,
-      prompt: "Lịch tiêm phòng định kỳ cho chó gồm những mũi nào?"
+      prompt: "xin chào"
     },
     {
-      title: "Chăm sóc & Tắm rửa",
-      desc: "Cách tắm cho chó con an toàn tại nhà lần đầu tiên?",
+      title: "Dịch vụ khác",
+      desc: "Petcare có các dịch vụ nào",
       icon: <Bath size={20} className="text-purple-500" />,
-      prompt: "Cách tắm cho chó con an toàn tại nhà lần đầu tiên?"
+      prompt: "Petcare có các dịch vụ nào"
     }
   ];
 

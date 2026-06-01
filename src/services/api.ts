@@ -5,7 +5,7 @@ const API_BASE_URL = process.env.BACKEND_API_URL || 'http://localhost:8000';
 export const chatApi = {
   async sendMessage(request: ChatRequest): Promise<ChatResponse> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/chat`, {
+      const response = await fetch(`${API_BASE_URL}/api/chat/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -22,7 +22,13 @@ export const chatApi = {
       console.error('Error sending message:', error);
       // For development: Mock response if backend is offline
       return {
-        message: 'Xin lỗi, hiện tại tôi không thể kết nối tới máy chủ (Backend chưa hoạt động). Vui lòng thử lại sau!',
+        answer: 'Xin lỗi, hiện tại tôi không thể kết nối tới máy chủ (Backend chưa hoạt động). Vui lòng thử lại sau!',
+        intent: 'GREETING',
+        from_cache: false,
+        elapsed_time: 0.05,
+        num_docs: 0,
+        context_docs: [],
+        timing: { "mock_delay": 0.05 }
       };
     }
   },
@@ -37,7 +43,14 @@ export const chatApi = {
       }
 
       const data = await response.json();
-      return data.messages || [];
+      const messages = Array.isArray(data) ? data : (data.messages || []);
+      // Map database format created_at / role to Message format if needed
+      return messages.map((m: any, idx: number) => ({
+        id: m.id || `hist-${idx}`,
+        role: m.role,
+        content: m.content,
+        timestamp: m.created_at ? new Date(m.created_at).getTime() : Date.now()
+      }));
     } catch (error) {
       console.error('Error fetching history:', error);
       return [];

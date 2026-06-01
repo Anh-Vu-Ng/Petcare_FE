@@ -36,7 +36,20 @@ export function useChat() {
   }, []);
 
   // Simulate typing effect for the response
-  const simulateStreaming = async (fullText: string, messageId: string) => {
+  const simulateStreaming = async (
+    fullText: string,
+    messageId: string,
+    metadata?: {
+      intent?: string;
+      from_cache?: boolean;
+      elapsed_time?: number;
+      num_docs?: number;
+      context_docs?: any[];
+      price_data?: string;
+      timing?: Record<string, number>;
+      standalone_query?: string;
+    }
+  ) => {
     streamContentRef.current = '';
     const chunks = fullText.split(/(\s+)/); // Split by spaces to stream words
     
@@ -49,12 +62,21 @@ export function useChat() {
     }]);
 
     for (let i = 0; i < chunks.length; i++) {
-      await new Promise(resolve => setTimeout(resolve, 20 + Math.random() * 30)); // Delay between words
+      await new Promise(resolve => setTimeout(resolve, 15 + Math.random() * 20)); // Delay between words
       streamContentRef.current += chunks[i];
       
       setMessages(prev => prev.map(msg => 
         msg.id === messageId 
           ? { ...msg, content: streamContentRef.current } 
+          : msg
+      ));
+    }
+
+    // Attach metadata after streaming completes to avoid jumpy UI layouts
+    if (metadata) {
+      setMessages(prev => prev.map(msg => 
+        msg.id === messageId 
+          ? { ...msg, ...metadata } 
           : msg
       ));
     }
@@ -81,7 +103,17 @@ export function useChat() {
       });
 
       const botMsgId = uuidv4();
-      await simulateStreaming(response.message, botMsgId);
+      const botAnswer = response.answer || response.message || '';
+      await simulateStreaming(botAnswer, botMsgId, {
+        intent: response.intent,
+        from_cache: response.from_cache,
+        elapsed_time: response.elapsed_time,
+        num_docs: response.num_docs,
+        context_docs: response.context_docs,
+        price_data: response.price_data,
+        timing: response.timing,
+        standalone_query: response.standalone_query,
+      });
       
     } catch (error) {
       console.error(error);
