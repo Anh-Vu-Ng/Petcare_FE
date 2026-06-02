@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { Message } from '../../types/chat';
 import { MessageBubble } from './MessageBubble';
+import { ChatStatus, StatusPuppy } from './StatusPuppy';
 
 interface MessageListProps {
   messages: Message[];
+  chatStatus: ChatStatus;
 }
 
-export function MessageList({ messages }: MessageListProps) {
+  export function MessageList({ messages, chatStatus }: MessageListProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -20,7 +22,7 @@ export function MessageList({ messages }: MessageListProps) {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, chatStatus]);
 
   return (
     <div 
@@ -31,6 +33,7 @@ export function MessageList({ messages }: MessageListProps) {
         {messages.map((message) => (
           <MessageBubble key={message.id} message={message} />
         ))}
+        <StatusPuppy status={chatStatus} />
       </div>
     </div>
   );

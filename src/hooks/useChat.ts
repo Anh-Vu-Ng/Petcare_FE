@@ -2,10 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Message } from '../types/chat';
 import { chatApi } from '../services/api';
+import { ChatStatus } from '../components/chat/StatusPuppy';
 
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [chatStatus, setChatStatus] = useState<ChatStatus>('idle');
   const [sessionId, setSessionId] = useState<string | null>(null);
   
   // Ref for the current stream content to handle React state updates
@@ -13,10 +15,10 @@ export function useChat() {
 
   useEffect(() => {
     // Initialize session
-    let sid = localStorage.getItem('petcare_session_id');
+    let sid = sessionStorage.getItem('petcare_session_id');
     if (!sid) {
       sid = uuidv4();
-      localStorage.setItem('petcare_session_id', sid);
+      sessionStorage.setItem('petcare_session_id', sid);
     }
     setSessionId(sid);
 
@@ -95,6 +97,13 @@ export function useChat() {
 
     setMessages(prev => [...prev, newUserMsg]);
     setIsLoading(true);
+    
+    // 1. Chú cún hóng hớt: ngồi im, vểnh tai nghe ngóng
+    setChatStatus('sending');
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    // 2. Xử lý RAG: vẫy đuôi chờ đợi sốt ruột
+    setChatStatus('thinking');
 
     try {
       const response = await chatApi.sendMessage({
@@ -104,6 +113,9 @@ export function useChat() {
 
       const botMsgId = uuidv4();
       const botAnswer = response.answer || response.message || '';
+      
+      // 3. Chữ bắt đầu xuất hiện: nhảy cẫng hân hoan
+      setChatStatus('streaming');
       await simulateStreaming(botAnswer, botMsgId, {
         intent: response.intent,
         from_cache: response.from_cache,
@@ -126,12 +138,23 @@ export function useChat() {
       }]);
     } finally {
       setIsLoading(false);
+      setChatStatus('idle');
     }
+  };
+
+  const clearChat = () => {
+    setMessages([]);
+    // Generate new session ID to completely refresh context/memory on UI/Session level
+    const newSid = uuidv4();
+    sessionStorage.setItem('petcare_session_id', newSid);
+    setSessionId(newSid);
   };
 
   return {
     messages,
     isLoading,
-    sendMessage
+    sendMessage,
+    chatStatus,
+    clearChat
   };
 }

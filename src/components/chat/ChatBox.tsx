@@ -4,11 +4,11 @@ import React from 'react';
 import { useChat } from '../../hooks/useChat';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
-import { Sparkles, HeartPulse, ShieldAlert, Syringe, Bath, Activity } from 'lucide-react';
+import { Sparkles, HeartPulse, ShieldAlert, Syringe, Bath, Activity, RotateCcw } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function ChatBox() {
-  const { messages, isLoading, sendMessage } = useChat();
+  const { messages, isLoading, sendMessage, chatStatus, clearChat } = useChat();
 
   const suggestions = [
     {
@@ -40,14 +40,26 @@ export function ChatBox() {
   return (
     <div className="flex flex-col w-full h-full bg-white rounded-3xl border border-slate-100 shadow-xl overflow-hidden relative">
       {/* Cute Stethoscope Header */}
-      <header className="py-4 px-6 bg-gradient-to-r from-teal-500 to-teal-400 text-white flex items-center space-x-3.5 shadow-sm z-10 flex-shrink-0">
-        <div className="p-2 bg-white/20 rounded-xl">
-          <Activity size={20} />
+      <header className="py-2.5 px-5 bg-gradient-to-r from-teal-500 to-teal-400 text-white flex items-center justify-between shadow-sm z-10 flex-shrink-0">
+        <div className="flex items-center space-x-3">
+          <div className="p-1.5 bg-white/20 rounded-lg">
+            <Activity size={18} />
+          </div>
+          <div>
+            <h2 className="font-bold text-sm sm:text-base leading-tight">Trợ lý ảo Petcare</h2>
+            <p className="text-[9.5px] text-teal-50/90 tracking-wide leading-none">Trò chuyện hỏi đáp thông tin chăm sóc thú cưng</p>
+          </div>
         </div>
-        <div>
-          <h2 className="font-bold text-base sm:text-lg">Trợ lý ảo Petcare</h2>
-          <p className="text-[10px] text-teal-50/90 tracking-wide">Trò chuyện hỏi đáp thông tin chăm sóc thú cưng</p>
-        </div>
+
+        <button
+          onClick={clearChat}
+          disabled={isLoading || messages.length === 0}
+          className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 active:bg-white/25 border border-white/10 hover:border-white/20 transition-all text-xs font-semibold text-white/90 hover:text-white cursor-pointer select-none disabled:opacity-30 disabled:pointer-events-none"
+          title="Xóa lịch sử và làm mới hội thoại"
+        >
+          <RotateCcw size={14} className={isLoading ? "animate-spin" : ""} />
+          <span>Làm mới</span>
+        </button>
       </header>
 
       {/* Main chat body */}
@@ -109,7 +121,7 @@ export function ChatBox() {
             </motion.div>
           </div>
         ) : (
-          <MessageList messages={messages} />
+          <MessageList messages={messages} chatStatus={chatStatus} />
         )}
         
         <MessageInput onSendMessage={sendMessage} isLoading={isLoading} />
