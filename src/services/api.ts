@@ -1,6 +1,6 @@
 import { ChatRequest, ChatResponse, Message } from '../types/chat';
 
-const API_BASE_URL = process.env.BACKEND_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL || 'http://localhost:8000';
 
 export const chatApi = {
   async sendMessage(request: ChatRequest): Promise<ChatResponse> {
