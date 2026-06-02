@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-teal-400: #2dd4bf;
-  --color-teal-500: #14b8a6;
-  --color-teal-600: #0d9488;
+  --color-teal-400: #34ee9a;
+  --color-teal-500: #00d285;
+  --color-teal-600: #00a96b;
 }
 
 :root {
@@ -97,7 +97,7 @@ body {
 .prose code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   background-color: #f1f5f9;
-  color: #0d9488;
+  color: #00a96b;
   padding: 0.1rem 0.25rem;
   border-radius: 4px;
   font-size: 0.9em;
@@ -145,7 +145,7 @@ body {
 }
 
 .prose blockquote {
-  border-left: 4px solid #14b8a6;
+  border-left: 4px solid #00d285;
   padding-left: 0.75rem;
   font-style: italic;
   color: #475569;

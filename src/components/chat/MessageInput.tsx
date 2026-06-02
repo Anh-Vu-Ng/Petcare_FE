@@ -55,7 +55,7 @@ export function MessageInput({ onSendMessage, isLoading }: MessageInputProps) {
             value={content}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
-            placeholder="Hỏi về cách chăm sóc thú cưng của bạn..."
+            placeholder="Bạn có điều gì cần giúp đỡ hong ..."
             className="flex-1 max-h-[150px] min-h-[40px] py-2 bg-transparent resize-none focus:outline-none overflow-y-auto text-slate-800 placeholder-slate-400 text-sm sm:text-base leading-relaxed scrollbar-none"
             rows={1}
             disabled={isLoading}
@@ -79,7 +79,7 @@ export function MessageInput({ onSendMessage, isLoading }: MessageInputProps) {
         </div>
       </div>
       <div className="text-center mt-2 text-[10px] text-slate-400 tracking-wide select-none">
-        Petcare RAG có thể đưa ra thông tin không chính xác. Hãy cân nhắc kiểm chứng thông tin y tế quan trọng.
+        Petcare chatbot có thể đưa ra thông tin không chính xác. Hãy đưa pet tới cửa hàng để được chăm sóc tốt nhất nhé!
       </div>
     </div>
   );
