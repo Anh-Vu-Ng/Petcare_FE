@@ -68,9 +68,10 @@ export function DateTimeSlotPicker() {
     staleTime: 1000 * 60 * 2, // 2 minutes
   });
 
-  const slots = slotsData?.slots || [];
-  const morningSlots = slots.filter((s) => s.is_morning);
-  const afternoonSlots = slots.filter((s) => !s.is_morning);
+  const rawSlots = slotsData?.slots;
+  const slots = Array.isArray(rawSlots) ? rawSlots : Array.isArray(slotsData) ? slotsData : [];
+  const morningSlots = slots.filter((s) => s && s.is_morning);
+  const afternoonSlots = slots.filter((s) => s && !s.is_morning);
 
   const handleDateSelect = (dateStr: string) => {
     setValue('booking_date', dateStr, { shouldValidate: true });

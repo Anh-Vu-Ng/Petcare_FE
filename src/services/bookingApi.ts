@@ -8,8 +8,8 @@ import {
   ServiceId,
   TimeSlot,
 } from '../types/booking';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL || 'http://localhost:8000';
+const RAW_API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL || '';
+const API_BASE_URL = RAW_API_BASE_URL ? RAW_API_BASE_URL.replace(/\/+$/, '') : (typeof window !== 'undefined' ? '' : 'http://localhost:8000');
 const STORAGE_KEY = 'petcare_mock_bookings';
 
 // Helper to get local stored bookings for offline testing
@@ -141,6 +141,12 @@ export const bookingApi = {
     weight_kg?: number;
     duration_days?: number;
   }): Promise<PriceEstimateResponse> {
+    const fallback = computeClientEstimate(
+      payload.services || [],
+      payload.weight_kg || 5,
+      payload.duration_days || 1
+    );
+
     try {
       const response = await fetch(`${API_BASE_URL}/api/v1/bookings/estimate-price`, {
         method: 'POST',
@@ -152,14 +158,25 @@ export const bookingApi = {
         throw new Error(`Price estimation failed: ${response.statusText}`);
       }
 
-      return await response.json();
+      const resJson = await response.json();
+      if (!resJson || typeof resJson !== 'object') {
+        return fallback;
+      }
+
+      // Defensively normalize response fields
+      return {
+        items: Array.isArray(resJson.items) && resJson.items.length > 0 ? resJson.items : fallback.items,
+        subtotal: typeof resJson.subtotal === 'number' ? resJson.subtotal : Number(resJson.subtotal) || fallback.subtotal,
+        discount_amount: typeof resJson.discount_amount === 'number' ? resJson.discount_amount : Number(resJson.discount_amount) || 0,
+        discount_percentage: typeof resJson.discount_percentage === 'number' ? resJson.discount_percentage : Number(resJson.discount_percentage) || 0,
+        final_total: typeof resJson.final_total === 'number' ? resJson.final_total : Number(resJson.final_total) || fallback.final_total,
+        has_quote_only_service: Boolean(resJson.has_quote_only_service ?? fallback.has_quote_only_service),
+        free_gifts: Array.isArray(resJson.free_gifts) ? resJson.free_gifts : fallback.free_gifts,
+        disclaimer: resJson.disclaimer || fallback.disclaimer,
+      };
     } catch (error) {
       // Offline fallback computation
-      return computeClientEstimate(
-        payload.services || [],
-        payload.weight_kg || 5,
-        payload.duration_days || 1
-      );
+      return fallback;
     }
   },
 
@@ -174,7 +191,14 @@ export const bookingApi = {
         throw new Error(`Failed to fetch slots: ${response.statusText}`);
       }
 
-      return await response.json();
+      const resJson = await response.json();
+      if (resJson && Array.isArray(resJson.slots)) {
+        return resJson;
+      }
+      if (Array.isArray(resJson)) {
+        return { date: dateStr, slots: resJson, is_closed: false };
+      }
+      throw new Error('Invalid slots data format');
     } catch (error) {
       // Mock slots generator
       const selectedDate = new Date(dateStr);

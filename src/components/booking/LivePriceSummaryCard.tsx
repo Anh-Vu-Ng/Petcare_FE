@@ -108,14 +108,14 @@ export function LivePriceSummaryCard({ isSubmitting = false }: LivePriceSummaryC
             )}
           </div>
 
-          {services.length === 0 ? (
+          {(!estimate?.items || estimate.items.length === 0) ? (
             <div className="p-4 bg-slate-50 border border-dashed border-slate-200 rounded-2xl text-center text-slate-400 text-xs">
               <Sparkles size={20} className="mx-auto mb-1 text-slate-300" />
               Chưa chọn dịch vụ nào. Hãy tick chọn các dịch vụ ở cột bên trái!
             </div>
           ) : (
             <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
-              {estimate.items.map((item, idx) => (
+              {(estimate.items || []).map((item, idx) => (
                 <div
                   key={idx}
                   className="flex items-center justify-between py-1.5 border-b border-slate-100 last:border-0"
@@ -134,7 +134,7 @@ export function LivePriceSummaryCard({ isSubmitting = false }: LivePriceSummaryC
                       </span>
                     ) : (
                       <span className="font-bold text-slate-800">
-                        {item.total_price.toLocaleString('vi-VN')}đ
+                        {(Number(item.total_price) || 0).toLocaleString('vi-VN')}đ
                       </span>
                     )}
                   </div>
@@ -145,7 +145,7 @@ export function LivePriceSummaryCard({ isSubmitting = false }: LivePriceSummaryC
         </div>
 
         {/* Boarding Gift / Bonus Badges */}
-        {estimate.free_gifts && estimate.free_gifts.length > 0 && (
+        {Array.isArray(estimate?.free_gifts) && estimate.free_gifts.length > 0 && (
           <div className="p-2.5 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl">
             <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-800 mb-1">
               <Gift size={14} className="text-emerald-600" />
@@ -164,15 +164,15 @@ export function LivePriceSummaryCard({ isSubmitting = false }: LivePriceSummaryC
           <div className="flex items-center justify-between text-slate-600">
             <span>Tạm tính niêm yết:</span>
             <span className="font-semibold text-slate-800">
-              {estimate.subtotal.toLocaleString('vi-VN')}đ
+              {(Number(estimate?.subtotal) || 0).toLocaleString('vi-VN')}đ
             </span>
           </div>
 
-          {estimate.discount_amount > 0 && (
+          {(Number(estimate?.discount_amount) || 0) > 0 && (
             <div className="flex items-center justify-between text-emerald-600">
-              <span>Giảm giá ({estimate.discount_percentage}%):</span>
+              <span>Giảm giá ({Number(estimate?.discount_percentage) || 0}%):</span>
               <span className="font-bold">
-                -{estimate.discount_amount.toLocaleString('vi-VN')}đ
+                -{(Number(estimate?.discount_amount) || 0).toLocaleString('vi-VN')}đ
               </span>
             </div>
           )}
@@ -187,7 +187,7 @@ export function LivePriceSummaryCard({ isSubmitting = false }: LivePriceSummaryC
                 </span>
               ) : (
                 <span className="font-black text-teal-600 text-xl tracking-tight">
-                  {estimate.final_total.toLocaleString('vi-VN')}
+                  {(Number(estimate?.final_total) || 0).toLocaleString('vi-VN')}
                   <span className="text-xs font-bold text-teal-700 ml-0.5">đ</span>
                 </span>
               )}

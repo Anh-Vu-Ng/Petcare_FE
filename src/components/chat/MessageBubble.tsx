@@ -77,7 +77,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
                 <>
                   <div className="prose prose-sm sm:prose-base max-w-none text-slate-800">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                      {message.content}
+                      {String(message.content || '')}
                     </ReactMarkdown>
                   </div>
                   
@@ -103,7 +103,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
                         {message.elapsed_time !== undefined && (
                           <span className="flex items-center gap-1 text-[11px] text-slate-500 bg-slate-50 border border-slate-200/50 px-2.5 py-0.5 rounded-full font-medium shadow-sm">
                             <Clock size={11} className="text-slate-400" />
-                            {message.elapsed_time.toFixed(2)}s
+                            {(Number(message.elapsed_time) || 0).toFixed(2)}s
                           </span>
                         )}
                         
@@ -128,7 +128,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 
                       <AnimatePresence>
                         {/* Accordion: Xem dữ liệu đã truy xuất */}
-                        {message.context_docs && message.context_docs.length > 0 && (
+                        {Array.isArray(message.context_docs) && message.context_docs.length > 0 && (
                           <div className="font-sans">
                             <button
                               onClick={() => setIsDocsOpen(!isDocsOpen)}
@@ -151,11 +151,13 @@ export function MessageBubble({ message }: MessageBubbleProps) {
                               >
                                 {message.context_docs.map((doc, idx) => {
                                   const scores = [];
-                                  if (doc.rerank_score !== undefined) {
-                                    scores.push(`🏆 Rerank: ${doc.rerank_score.toFixed(4)}`);
+                                  const rerankNum = Number(doc?.rerank_score);
+                                  if (!isNaN(rerankNum) && doc?.rerank_score !== undefined) {
+                                    scores.push(`🏆 Rerank: ${rerankNum.toFixed(4)}`);
                                   }
-                                  if (doc.rrf_score !== undefined) {
-                                    scores.push(`🎯 RRF: ${doc.rrf_score.toFixed(4)}`);
+                                  const rrfNum = Number(doc?.rrf_score);
+                                  if (!isNaN(rrfNum) && doc?.rrf_score !== undefined) {
+                                    scores.push(`🎯 RRF: ${rrfNum.toFixed(4)}`);
                                   }
                                   const scoreText = scores.length > 0 ? ` — ${scores.join(' · ')}` : '';
                                   
@@ -164,13 +166,13 @@ export function MessageBubble({ message }: MessageBubbleProps) {
                                       <div className="flex items-center gap-1.5 font-semibold text-slate-700 mb-1 border-b border-slate-100 pb-1 flex-wrap">
                                         <FileCode size={12} className="text-slate-400" />
                                         <span>Tài liệu {idx + 1}</span>
-                                        <span className="text-[10px] bg-slate-200/60 text-slate-600 px-1.5 py-0.5 rounded font-mono truncate max-w-[200px]" title={doc.source}>
-                                          {doc.source}
+                                        <span className="text-[10px] bg-slate-200/60 text-slate-600 px-1.5 py-0.5 rounded font-mono truncate max-w-[200px]" title={doc?.source}>
+                                          {doc?.source}
                                         </span>
                                         {scoreText && <span className="text-[10px] text-teal-600 font-medium ml-auto">{scoreText}</span>}
                                       </div>
                                       <div className="whitespace-pre-wrap font-mono text-[10.5px] bg-white border border-slate-100 rounded-lg p-2 max-h-[120px] overflow-y-auto scrollbar-none">
-                                        {doc.content}
+                                        {doc?.content}
                                       </div>
                                     </div>
                                   );
@@ -181,7 +183,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
                         )}
 
                         {/* Accordion: Timing breakdown */}
-                        {message.timing && Object.keys(message.timing).length > 0 && (
+                        {message.timing && typeof message.timing === 'object' && !Array.isArray(message.timing) && Object.keys(message.timing).length > 0 && (
                           <div className="font-sans">
                             <button
                               onClick={() => setIsTimingOpen(!isTimingOpen)}
@@ -214,9 +216,11 @@ export function MessageBubble({ message }: MessageBubbleProps) {
                                     "cache_store": "💾 Cache Store",
                                   };
                                   
-                                  const totalElapsed = message.elapsed_time || Object.values(message.timing).reduce((a, b) => a + b, 0) || 1;
+                                  const timingValues = Object.values(message.timing).map((v) => Number(v) || 0);
+                                  const totalElapsed = Number(message.elapsed_time) || timingValues.reduce((a, b) => a + b, 0) || 1;
                                   
-                                  return Object.entries(message.timing).map(([key, val]) => {
+                                  return Object.entries(message.timing).map(([key, rawVal]) => {
+                                    const val = Number(rawVal) || 0;
                                     const label = timingLabels[key] || key;
                                     const pct = Math.min((val / totalElapsed) * 100, 100);
                                     
