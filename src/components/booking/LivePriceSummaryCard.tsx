@@ -115,31 +115,41 @@ export function LivePriceSummaryCard({ isSubmitting = false }: LivePriceSummaryC
             </div>
           ) : (
             <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
-              {(estimate.items || []).map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center justify-between py-1.5 border-b border-slate-100 last:border-0"
-                >
-                  <div className="flex-1 pr-2">
-                    <span className="font-semibold text-slate-800">{item.service_name}</span>
-                    {item.note && (
-                      <p className="text-[10px] text-slate-400 leading-tight">{item.note}</p>
-                    )}
-                  </div>
+              {(estimate.items || []).map((item, idx) => {
+                const serviceDef = AVAILABLE_SERVICES.find(
+                  (s) => s.id === item.service_id
+                );
+                const displayName =
+                  item.service_name && item.service_name !== item.service_id
+                    ? item.service_name
+                    : serviceDef?.name || item.service_name || item.service_id;
 
-                  <div className="text-right flex-shrink-0">
-                    {item.is_quote_only ? (
-                      <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                        Bác sĩ báo giá sau
-                      </span>
-                    ) : (
-                      <span className="font-bold text-slate-800">
-                        {(Number(item.total_price) || 0).toLocaleString('vi-VN')}đ
-                      </span>
-                    )}
+                return (
+                  <div
+                    key={idx}
+                    className="flex items-center justify-between py-1.5 border-b border-slate-100 last:border-0"
+                  >
+                    <div className="flex-1 pr-2">
+                      <span className="font-semibold text-slate-800">{displayName}</span>
+                      {item.note && (
+                        <p className="text-[10px] text-slate-400 leading-tight">{item.note}</p>
+                      )}
+                    </div>
+
+                    <div className="text-right flex-shrink-0">
+                      {item.is_quote_only ? (
+                        <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                          Bác sĩ báo giá sau
+                        </span>
+                      ) : (
+                        <span className="font-bold text-slate-800">
+                          {(Number(item.total_price) || 0).toLocaleString('vi-VN')}đ
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

@@ -3,6 +3,7 @@ import {
   BookingResponse,
   BookingDetail,
   PriceEstimateResponse,
+  PriceEstimateItem,
   AvailableSlotsResponse,
   AVAILABLE_SERVICES,
   ServiceId,
@@ -163,15 +164,82 @@ export const bookingApi = {
         return fallback;
       }
 
-      // Defensively normalize response fields
+      // 1. Defensively normalize items list
+      const rawItems = Array.isArray(resJson.items) && resJson.items.length > 0 ? resJson.items : fallback.items;
+      const normalizedItems = rawItems.map((item: any) => {
+        const serviceDef = AVAILABLE_SERVICES.find(
+          (s) => s.id === item.service_id || s.id === item.id
+        );
+        const fallbackItem = fallback.items.find(
+          (f) => f.service_id === item.service_id || f.service_id === item.id
+        );
+
+        const serviceId = item.service_id || item.id || serviceDef?.id || 'service';
+        // Ensure human-friendly Vietnamese service name instead of raw ID
+        const serviceName =
+          (item.service_name && item.service_name !== serviceId)
+            ? item.service_name
+            : serviceDef?.name || fallbackItem?.service_name || serviceId;
+
+        const isQuoteOnly = Boolean(item.is_quote_only ?? serviceDef?.isQuoteOnly ?? false);
+
+        // Resolve item pricing if backend returned 0 for a known service
+        let unitPrice = Number(item.unit_price) || 0;
+        let totalPrice = Number(item.total_price) || 0;
+        if (!isQuoteOnly && totalPrice === 0 && fallbackItem && fallbackItem.total_price > 0) {
+          totalPrice = fallbackItem.total_price;
+          unitPrice = fallbackItem.unit_price;
+        }
+
+        // Clean up error notes if price is properly resolved
+        let note = item.note;
+        if (note && note.includes('Không tìm thấy') && totalPrice > 0) {
+          note = serviceDef?.isDurationBased
+            ? `${payload.duration_days || 1} ngày (${unitPrice.toLocaleString('vi-VN')}đ/ngày)`
+            : undefined;
+        } else if (!note && fallbackItem?.note) {
+          note = fallbackItem.note;
+        }
+
+        return {
+          service_id: serviceId,
+          service_name: serviceName,
+          is_quote_only: isQuoteOnly,
+          unit_price: unitPrice,
+          total_price: totalPrice,
+          note,
+        };
+      });
+
+      // 2. Reconcile subtotal and final_total
+      const computedSubtotal = normalizedItems.reduce(
+        (sum: number, item: PriceEstimateItem) => sum + (item.total_price || 0),
+        0
+      );
+      const rawSubtotal = Number(resJson.subtotal);
+      const subtotal = (!isNaN(rawSubtotal) && rawSubtotal > 0) ? rawSubtotal : (computedSubtotal || fallback.subtotal);
+
+      const discountAmount = typeof resJson.discount_amount === 'number'
+        ? resJson.discount_amount
+        : Number(resJson.discount_amount) || fallback.discount_amount;
+
+      const discountPercentage = typeof resJson.discount_percentage === 'number'
+        ? resJson.discount_percentage
+        : Number(resJson.discount_percentage) || fallback.discount_percentage;
+
+      const rawFinalTotal = Number(resJson.final_total);
+      const finalTotal = (!isNaN(rawFinalTotal) && rawFinalTotal > 0)
+        ? rawFinalTotal
+        : Math.max(0, subtotal - discountAmount);
+
       return {
-        items: Array.isArray(resJson.items) && resJson.items.length > 0 ? resJson.items : fallback.items,
-        subtotal: typeof resJson.subtotal === 'number' ? resJson.subtotal : Number(resJson.subtotal) || fallback.subtotal,
-        discount_amount: typeof resJson.discount_amount === 'number' ? resJson.discount_amount : Number(resJson.discount_amount) || 0,
-        discount_percentage: typeof resJson.discount_percentage === 'number' ? resJson.discount_percentage : Number(resJson.discount_percentage) || 0,
-        final_total: typeof resJson.final_total === 'number' ? resJson.final_total : Number(resJson.final_total) || fallback.final_total,
+        items: normalizedItems,
+        subtotal,
+        discount_amount: discountAmount,
+        discount_percentage: discountPercentage,
+        final_total: finalTotal,
         has_quote_only_service: Boolean(resJson.has_quote_only_service ?? fallback.has_quote_only_service),
-        free_gifts: Array.isArray(resJson.free_gifts) ? resJson.free_gifts : fallback.free_gifts,
+        free_gifts: Array.isArray(resJson.free_gifts) && resJson.free_gifts.length > 0 ? resJson.free_gifts : fallback.free_gifts,
         disclaimer: resJson.disclaimer || fallback.disclaimer,
       };
     } catch (error) {
@@ -182,6 +250,37 @@ export const bookingApi = {
 
   // 2. Lấy danh sách khung giờ mở cửa theo ngày
   async getAvailableSlots(dateStr: string): Promise<AvailableSlotsResponse> {
+    const selectedDate = new Date(dateStr);
+    const isSunday = selectedDate.getDay() === 0;
+
+    const morningTemplate = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30'];
+    const afternoonTemplate = isSunday
+      ? ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30']
+      : ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30'];
+
+    const now = new Date();
+    const isToday =
+      selectedDate.getFullYear() === now.getFullYear() &&
+      selectedDate.getMonth() === now.getMonth() &&
+      selectedDate.getDate() === now.getDate();
+
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+    const createFallbackSlot = (time: string, isMorning: boolean): TimeSlot => {
+      const [hours, mins] = time.split(':').map(Number);
+      const slotMinutes = hours * 60 + mins;
+      let available = true;
+      if (isToday && slotMinutes <= currentMinutes + 30) {
+        available = false;
+      }
+      return {
+        time,
+        available,
+        is_morning: isMorning,
+        remaining_capacity: available ? 3 : 0,
+      };
+    };
+
     try {
       const response = await fetch(
         `${API_BASE_URL}/api/v1/bookings/available-slots?date=${encodeURIComponent(dateStr)}`
@@ -192,62 +291,66 @@ export const bookingApi = {
       }
 
       const resJson = await response.json();
-      if (resJson && Array.isArray(resJson.slots)) {
-        return resJson;
+      const rawSlotsList = Array.isArray(resJson?.slots)
+        ? resJson.slots
+        : Array.isArray(resJson)
+        ? resJson
+        : [];
+
+      if (rawSlotsList.length === 0) {
+        throw new Error('Empty slots from backend, using standard schedule');
       }
-      if (Array.isArray(resJson)) {
-        return { date: dateStr, slots: resJson, is_closed: false };
-      }
-      throw new Error('Invalid slots data format');
-    } catch (error) {
-      // Mock slots generator
-      const selectedDate = new Date(dateStr);
-      const isSunday = selectedDate.getDay() === 0;
 
-      const morningTimes = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30'];
-      const afternoonTimes = isSunday
-        ? ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30'] // Sunday closes earlier
-        : ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30'];
-
-      const now = new Date();
-      const isToday =
-        selectedDate.getFullYear() === now.getFullYear() &&
-        selectedDate.getMonth() === now.getMonth() &&
-        selectedDate.getDate() === now.getDate();
-
-      const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-      const createSlot = (time: string, isMorning: boolean): TimeSlot => {
+      const mappedSlots: TimeSlot[] = rawSlotsList.map((slot: any) => {
+        const time = typeof slot === 'string' ? slot : (slot.time || slot.slot || slot.time_slot || '');
         const [hours, mins] = time.split(':').map(Number);
-        const slotMinutes = hours * 60 + mins;
+        const slotMinutes = (!isNaN(hours) && !isNaN(mins)) ? (hours * 60 + mins) : 0;
+        const isMorning = slot.is_morning !== undefined
+          ? Boolean(slot.is_morning)
+          : (!isNaN(hours) ? hours < 12 : true);
 
-        let available = true;
-        // If today, disable past time slots
-        if (isToday && slotMinutes <= currentMinutes + 30) {
-          available = false;
-        }
+        let isAvail = slot.available !== undefined
+          ? Boolean(slot.available)
+          : slot.is_available !== undefined
+          ? Boolean(slot.is_available)
+          : slot.status !== 'BOOKED' && slot.status !== 'UNAVAILABLE';
 
-        // Check if there are already existing bookings stored locally for this date & slot
-        const storedBookings = getStoredBookings();
-        const bookedCount = storedBookings.filter(
-          (b) => b.booking_date === dateStr && b.booking_time === time && b.status !== 'CANCELLED'
-        ).length;
-
-        if (bookedCount >= 3) {
-          available = false;
+        // Check if slot has passed today
+        if (isToday && slotMinutes > 0 && slotMinutes <= currentMinutes + 30) {
+          isAvail = false;
         }
 
         return {
           time,
-          available,
+          available: isAvail,
           is_morning: isMorning,
-          remaining_capacity: available ? Math.max(0, 3 - bookedCount) : 0,
+          remaining_capacity: slot.remaining_capacity ?? (isAvail ? 3 : 0),
         };
-      };
+      });
 
+      // Ensure both morning and afternoon schedules exist
+      const hasMorning = mappedSlots.some((s) => s.is_morning && s.time);
+      const hasAfternoon = mappedSlots.some((s) => !s.is_morning && s.time);
+
+      const finalMorningSlots = hasMorning
+        ? mappedSlots.filter((s) => s.is_morning && s.time)
+        : morningTemplate.map((t) => createFallbackSlot(t, true));
+
+      const finalAfternoonSlots = hasAfternoon
+        ? mappedSlots.filter((s) => !s.is_morning && s.time)
+        : afternoonTemplate.map((t) => createFallbackSlot(t, false));
+
+      return {
+        date: dateStr,
+        slots: [...finalMorningSlots, ...finalAfternoonSlots],
+        is_closed: Boolean(resJson.is_closed),
+        note: resJson.note || (isSunday ? 'Chủ nhật phòng khám mở cửa đến 17:00' : undefined),
+      };
+    } catch (error) {
+      // Mock slots generator
       const slots: TimeSlot[] = [
-        ...morningTimes.map((t) => createSlot(t, true)),
-        ...afternoonTimes.map((t) => createSlot(t, false)),
+        ...morningTemplate.map((t) => createFallbackSlot(t, true)),
+        ...afternoonTemplate.map((t) => createFallbackSlot(t, false)),
       ];
 
       return {

@@ -70,8 +70,18 @@ export function DateTimeSlotPicker() {
 
   const rawSlots = slotsData?.slots;
   const slots = Array.isArray(rawSlots) ? rawSlots : Array.isArray(slotsData) ? slotsData : [];
-  const morningSlots = slots.filter((s) => s && s.is_morning);
-  const afternoonSlots = slots.filter((s) => s && !s.is_morning);
+  const morningSlots = slots.filter((s) => {
+    if (!s || !s.time) return false;
+    if (typeof s.is_morning === 'boolean') return s.is_morning;
+    const [h] = s.time.split(':').map(Number);
+    return !isNaN(h) && h < 12;
+  });
+  const afternoonSlots = slots.filter((s) => {
+    if (!s || !s.time) return false;
+    if (typeof s.is_morning === 'boolean') return !s.is_morning;
+    const [h] = s.time.split(':').map(Number);
+    return !isNaN(h) && h >= 12;
+  });
 
   const handleDateSelect = (dateStr: string) => {
     setValue('booking_date', dateStr, { shouldValidate: true });
@@ -206,7 +216,7 @@ export function DateTimeSlotPicker() {
                         ? 'bg-teal-500 text-white border-teal-500 shadow-md shadow-teal-500/20 scale-102'
                         : slot.available
                         ? 'bg-white text-slate-700 border-slate-200 hover:border-teal-400 hover:bg-teal-50/40 hover:text-teal-700 active:scale-95'
-                        : 'bg-slate-100 text-slate-300 border-slate-100 cursor-not-allowed line-through opacity-60'
+                        : 'bg-slate-100/90 text-slate-400 border-slate-200/80 cursor-not-allowed line-through'
                     }`}
                   >
                     {slot.time}
@@ -237,7 +247,7 @@ export function DateTimeSlotPicker() {
                         ? 'bg-teal-500 text-white border-teal-500 shadow-md shadow-teal-500/20 scale-102'
                         : slot.available
                         ? 'bg-white text-slate-700 border-slate-200 hover:border-teal-400 hover:bg-teal-50/40 hover:text-teal-700 active:scale-95'
-                        : 'bg-slate-100 text-slate-300 border-slate-100 cursor-not-allowed line-through opacity-60'
+                        : 'bg-slate-100/90 text-slate-400 border-slate-200/80 cursor-not-allowed line-through'
                     }`}
                   >
                     {slot.time}
