@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 type TabKey = 'chat' | 'booking' | 'lookup';
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<TabKey>('booking');
+  const [activeTab, setActiveTab] = useState<TabKey>('chat');
   const [prefillService, setPrefillService] = useState<string | undefined>(undefined);
 
   const handleOpenBooking = (serviceId?: string) => {
@@ -78,11 +78,11 @@ export default function Home() {
               onClick={() => setActiveTab('chat')}
               className={`flex items-center space-x-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer select-none ${
                 activeTab === 'chat'
-                  ? 'bg-white text-teal-700 shadow-sm shadow-slate-200'
+                  ? 'bg-teal-500 text-white shadow-sm shadow-teal-500/25'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
               }`}
             >
-              <MessageSquare size={16} className={activeTab === 'chat' ? 'text-teal-500' : ''} />
+              <MessageSquare size={16} />
               <span>Tư Vấn AI</span>
             </button>
 
@@ -105,11 +105,11 @@ export default function Home() {
               onClick={() => setActiveTab('lookup')}
               className={`flex items-center space-x-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer select-none ${
                 activeTab === 'lookup'
-                  ? 'bg-white text-teal-700 shadow-sm shadow-slate-200'
+                  ? 'bg-teal-500 text-white shadow-sm shadow-teal-500/25'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
               }`}
             >
-              <Search size={16} className={activeTab === 'lookup' ? 'text-teal-500' : ''} />
+              <Search size={16} />
               <span>Tra Cứu</span>
             </button>
           </nav>

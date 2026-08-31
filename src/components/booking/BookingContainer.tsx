@@ -43,7 +43,7 @@ export function BookingContainer({ onSwitchToChat, prefillService }: BookingCont
       weight_kg: 5,
       services: prefillService ? [prefillService] : ['bath'],
       booking_date: getTodayISO(),
-      booking_time: '09:00',
+      booking_time: '',
       duration_days: 1,
       notes: '',
     },
@@ -81,7 +81,7 @@ export function BookingContainer({ onSwitchToChat, prefillService }: BookingCont
       weight_kg: 5,
       services: ['bath'],
       booking_date: getTodayISO(),
-      booking_time: '09:00',
+      booking_time: '',
       duration_days: 1,
       notes: '',
     });
@@ -107,24 +107,19 @@ export function BookingContainer({ onSwitchToChat, prefillService }: BookingCont
 
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* 2-Column Responsive Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            {/* Left Column (Input Form Sections - 65% width on desktop) */}
-            <div className="lg:col-span-7 space-y-6">
-              {/* Section 1: Customer & Pet Information */}
-              <CustomerPetInfoCard />
+          {/* Form Sections - Single Column Flow */}
+          <div className="max-w-4xl mx-auto flex flex-col gap-6 pt-2">
+            {/* Section 1: Customer & Pet Information */}
+            <CustomerPetInfoCard />
 
-              {/* Section 2: Service Selection Grid */}
-              <ServiceSelectorGrid />
+            {/* Section 2: Service Selection Grid */}
+            <ServiceSelectorGrid />
 
-              {/* Section 3: Date & Time Picker */}
-              <DateTimeSlotPicker />
-            </div>
+            {/* Section 3: Date & Time Picker */}
+            <DateTimeSlotPicker />
 
-            {/* Right Column (Live Pricing & Sticky Ticket - 35% width on desktop) */}
-            <div className="lg:col-span-5">
-              <LivePriceSummaryCard isSubmitting={isSubmitting} />
-            </div>
+            {/* Section 4: Live Pricing Ticket - Bottom of page */}
+            <LivePriceSummaryCard isSubmitting={isSubmitting} />
           </div>
         </form>
       </FormProvider>

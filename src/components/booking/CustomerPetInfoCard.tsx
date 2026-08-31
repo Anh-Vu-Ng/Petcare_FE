@@ -46,11 +46,11 @@ export function CustomerPetInfoCard() {
             1
           </div>
           <div>
-            <h3 className="font-bold text-slate-800 text-base flex items-center gap-1.5">
+            <h3 className="font-bold text-slate-800 text-lg flex items-center gap-1.5">
               Thông tin Khách hàng & Thú cưng
               <Sparkles size={16} className="text-amber-400" />
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-sm text-slate-400">
               Vui lòng cung cấp số điện thoại chính xác để nhận thông báo và mã vé
             </p>
           </div>
@@ -61,7 +61,7 @@ export function CustomerPetInfoCard() {
         {/* Row 1: Customer Name & Phone */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+            <label className="block text-sm font-semibold text-slate-700 mb-1.5">
               Họ và tên khách hàng <span className="text-rose-500">*</span>
             </label>
             <div className="relative">
@@ -87,7 +87,7 @@ export function CustomerPetInfoCard() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5 flex items-center justify-between">
+            <label className="block text-sm font-semibold text-slate-700 mb-1.5 flex items-center justify-between">
               <span>
                 Số điện thoại liên hệ <span className="text-rose-500">*</span>
               </span>
@@ -126,7 +126,7 @@ export function CustomerPetInfoCard() {
         {/* Row 2: Pet Name & Pet Type (Radio cards) */}
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-4">
           <div className="sm:col-span-5">
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+            <label className="block text-sm font-semibold text-slate-700 mb-1.5">
               Tên bé cưng <span className="text-slate-400 font-normal">(không bắt buộc)</span>
             </label>
             <input
@@ -138,7 +138,7 @@ export function CustomerPetInfoCard() {
           </div>
 
           <div className="sm:col-span-7">
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+            <label className="block text-sm font-semibold text-slate-700 mb-1.5">
               Loài thú cưng <span className="text-rose-500">*</span>
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -177,10 +177,10 @@ export function CustomerPetInfoCard() {
         <div className="bg-slate-50/60 rounded-2xl p-4 border border-slate-100">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-sm font-semibold text-slate-700">
                 Cân nặng của bé:
               </label>
-              <span className="text-[11px] text-slate-400">(Quyết định giá dịch vụ Spa & Khách sạn)</span>
+              <span className="text-xs text-slate-400">(Quyết định giá dịch vụ Spa & Khách sạn)</span>
             </div>
             <div className="flex items-center space-x-1.5 bg-white border border-teal-200 px-3 py-1 rounded-xl shadow-xs">
               <input
@@ -207,7 +207,7 @@ export function CustomerPetInfoCard() {
               onChange={(e) => handleWeightChange(parseFloat(e.target.value))}
               className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500 focus:outline-none"
             />
-            <div className="flex justify-between text-[10px] text-slate-400 font-medium px-0.5 mt-1">
+            <div className="flex justify-between text-[11px] text-slate-400 font-medium px-0.5 mt-1">
               <span>0.5kg</span>
               <span>10kg</span>
               <span>20kg</span>
@@ -218,7 +218,7 @@ export function CustomerPetInfoCard() {
 
           {/* Quick Preset Buttons */}
           <div className="flex flex-wrap gap-1.5 pt-1">
-            <span className="text-[11px] text-slate-400 self-center mr-1">Chọn nhanh:</span>
+            <span className="text-xs text-slate-400 self-center mr-1">Chọn nhanh:</span>
             {WEIGHT_PRESETS.map((preset) => {
               const isCurrent = Math.abs(weightKg - preset.value) < 0.5;
               return (
@@ -226,7 +226,7 @@ export function CustomerPetInfoCard() {
                   key={preset.value}
                   type="button"
                   onClick={() => handleWeightChange(preset.value)}
-                  className={`px-2.5 py-1 rounded-xl text-[11px] font-medium transition-all cursor-pointer border ${
+                  className={`px-2.5 py-1 rounded-xl text-xs font-medium transition-all cursor-pointer border ${
                     isCurrent
                       ? 'bg-teal-100 text-teal-700 border-teal-300 font-bold shadow-xs'
                       : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:border-slate-300'

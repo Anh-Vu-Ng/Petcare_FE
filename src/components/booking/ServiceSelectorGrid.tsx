@@ -94,13 +94,13 @@ export function ServiceSelectorGrid() {
             2
           </div>
           <div>
-            <h3 className="font-bold text-slate-800 text-base flex items-center gap-1.5">
+            <h3 className="font-bold text-slate-800 text-lg flex items-center gap-1.5">
               Lựa chọn Dịch vụ Chăm sóc & Khám
               <span className="text-xs font-normal text-slate-400">
                 (Đã chọn {selectedServices.length} dịch vụ)
               </span>
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-sm text-slate-400">
               Có thể chọn đồng thời nhiều dịch vụ để kết hợp thực hiện trong 1 buổi hẹn
             </p>
           </div>
@@ -174,7 +174,7 @@ export function ServiceSelectorGrid() {
                 </div>
 
                 {/* Description */}
-                <p className="text-xs text-slate-500 leading-relaxed line-clamp-2 pl-7.5 mb-2.5">
+                <p className="text-sm text-slate-500 leading-relaxed line-clamp-2 pl-7.5 mb-2.5">
                   {service.description}
                 </p>
               </div>
@@ -232,10 +232,10 @@ export function ServiceSelectorGrid() {
                     <Hotel size={16} />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-amber-900">
+                    <h4 className="text-sm font-bold text-amber-900">
                       Tùy chọn thời gian Lưu trú (Khách sạn 24h)
                     </h4>
-                    <p className="text-[11px] text-amber-700">
+                    <p className="text-xs text-amber-700">
                       Gửi bé dài ngày để nhận chiết khấu lên đến 15% và quà tặng Spa
                     </p>
                   </div>

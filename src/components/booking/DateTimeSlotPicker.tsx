@@ -103,10 +103,10 @@ export function DateTimeSlotPicker() {
             3
           </div>
           <div>
-            <h3 className="font-bold text-slate-800 text-base flex items-center gap-1.5">
+            <h3 className="font-bold text-slate-800 text-lg flex items-center gap-1.5">
               Chọn Ngày & Khung Giờ Hẹn
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-sm text-slate-400">
               Khung giờ trống được cập nhật theo thời gian thực để tránh chờ đợi tại phòng khám
             </p>
           </div>
@@ -116,7 +116,7 @@ export function DateTimeSlotPicker() {
       <div className="space-y-5">
         {/* Date Selector Section */}
         <div>
-          <label className="block text-xs font-semibold text-slate-700 mb-1.5 flex items-center justify-between">
+          <label className="block text-sm font-semibold text-slate-700 mb-1.5 flex items-center justify-between">
             <span>
               Ngày hẹn khám / chăm sóc <span className="text-rose-500">*</span>
             </span>
@@ -177,7 +177,7 @@ export function DateTimeSlotPicker() {
         {/* Time Slots Section */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+            <label className="text-sm font-semibold text-slate-700 flex items-center gap-1.5">
               <Clock size={14} className="text-teal-600" />
               Khung giờ hẹn có sẵn <span className="text-rose-500">*</span>
             </label>
@@ -197,7 +197,7 @@ export function DateTimeSlotPicker() {
 
           {/* Morning Slots */}
           <div className="mb-4">
-            <div className="flex items-center space-x-1.5 text-[11px] font-bold text-amber-800 bg-amber-50/80 px-2.5 py-1 rounded-lg w-max mb-2">
+            <div className="flex items-center space-x-1.5 text-xs font-bold text-amber-800 bg-amber-50/80 px-2.5 py-1 rounded-lg w-max mb-2">
               <Sun size={13} className="text-amber-600" />
               <span>Ca Sáng (08:00 - 12:00)</span>
             </div>
@@ -211,7 +211,7 @@ export function DateTimeSlotPicker() {
                     type="button"
                     disabled={!slot.available}
                     onClick={() => handleSlotSelect(slot)}
-                    className={`py-2 px-1 rounded-xl text-xs font-bold transition-all select-none text-center cursor-pointer border ${
+                    className={`py-2 px-1 rounded-xl text-sm font-bold transition-all select-none text-center cursor-pointer border ${
                       isSelected
                         ? 'bg-teal-500 text-white border-teal-500 shadow-md shadow-teal-500/20 scale-102'
                         : slot.available
@@ -228,7 +228,7 @@ export function DateTimeSlotPicker() {
 
           {/* Afternoon Slots */}
           <div>
-            <div className="flex items-center space-x-1.5 text-[11px] font-bold text-indigo-800 bg-indigo-50/80 px-2.5 py-1 rounded-lg w-max mb-2">
+            <div className="flex items-center space-x-1.5 text-xs font-bold text-indigo-800 bg-indigo-50/80 px-2.5 py-1 rounded-lg w-max mb-2">
               <Sunset size={13} className="text-indigo-600" />
               <span>Ca Chiều & Tối (14:00 - 19:00)</span>
             </div>
@@ -242,7 +242,7 @@ export function DateTimeSlotPicker() {
                     type="button"
                     disabled={!slot.available}
                     onClick={() => handleSlotSelect(slot)}
-                    className={`py-2 px-1 rounded-xl text-xs font-bold transition-all select-none text-center cursor-pointer border ${
+                    className={`py-2 px-1 rounded-xl text-sm font-bold transition-all select-none text-center cursor-pointer border ${
                       isSelected
                         ? 'bg-teal-500 text-white border-teal-500 shadow-md shadow-teal-500/20 scale-102'
                         : slot.available
