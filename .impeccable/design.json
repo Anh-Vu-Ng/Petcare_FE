@@ -1,0 +1,518 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-24T05:48:00Z",
+  "title": "Design System: Petcare — Stoneware & Collar Tag",
+  "extensions": {
+    "colorMeta": {
+      "collar-terracotta": {
+        "role": "primary",
+        "displayName": "Collar Terracotta",
+        "canonical": "oklch(55.1% 0.149 35.7)",
+        "tonalRamp": [
+          "oklch(16.0% 0.091 35.7)",
+          "oklch(27.0% 0.117 35.7)",
+          "oklch(39.0% 0.138 35.7)",
+          "oklch(51.0% 0.148 35.7)",
+          "oklch(63.0% 0.146 35.7)",
+          "oklch(75.0% 0.132 35.7)",
+          "oklch(86.0% 0.111 35.7)",
+          "oklch(95.0% 0.089 35.7)"
+        ]
+      },
+      "collar-terracotta-hover": {
+        "role": "primary",
+        "displayName": "Deep Terracotta",
+        "canonical": "oklch(49.0% 0.135 35.8)",
+        "tonalRamp": [
+          "oklch(16.0% 0.083 35.8)",
+          "oklch(27.0% 0.106 35.8)",
+          "oklch(39.0% 0.125 35.8)",
+          "oklch(51.0% 0.134 35.8)",
+          "oklch(63.0% 0.132 35.8)",
+          "oklch(75.0% 0.120 35.8)",
+          "oklch(86.0% 0.101 35.8)",
+          "oklch(95.0% 0.080 35.8)"
+        ]
+      },
+      "collar-terracotta-soft": {
+        "role": "primary",
+        "displayName": "Terracotta Blush",
+        "canonical": "oklch(96.3% 0.013 41.2)",
+        "tonalRamp": [
+          "oklch(16.0% 0.008 41.2)",
+          "oklch(27.0% 0.010 41.2)",
+          "oklch(39.0% 0.012 41.2)",
+          "oklch(51.0% 0.013 41.2)",
+          "oklch(63.0% 0.013 41.2)",
+          "oklch(75.0% 0.012 41.2)",
+          "oklch(86.0% 0.010 41.2)",
+          "oklch(95.0% 0.008 41.2)"
+        ]
+      },
+      "glazed-slate": {
+        "role": "secondary",
+        "displayName": "Glazed Slate",
+        "canonical": "oklch(33.5% 0.047 238.5)",
+        "tonalRamp": [
+          "oklch(16.0% 0.029 238.5)",
+          "oklch(27.0% 0.037 238.5)",
+          "oklch(39.0% 0.043 238.5)",
+          "oklch(51.0% 0.046 238.5)",
+          "oklch(63.0% 0.046 238.5)",
+          "oklch(75.0% 0.041 238.5)",
+          "oklch(86.0% 0.035 238.5)",
+          "oklch(95.0% 0.028 238.5)"
+        ]
+      },
+      "glazed-slate-deep": {
+        "role": "secondary",
+        "displayName": "Deep Glazed Slate",
+        "canonical": "oklch(28.2% 0.038 238.1)",
+        "tonalRamp": [
+          "oklch(16.0% 0.023 238.1)",
+          "oklch(27.0% 0.030 238.1)",
+          "oklch(39.0% 0.035 238.1)",
+          "oklch(51.0% 0.038 238.1)",
+          "oklch(63.0% 0.037 238.1)",
+          "oklch(75.0% 0.034 238.1)",
+          "oklch(86.0% 0.028 238.1)",
+          "oklch(95.0% 0.023 238.1)"
+        ]
+      },
+      "glazed-slate-border": {
+        "role": "secondary",
+        "displayName": "Slate Etch",
+        "canonical": "oklch(40.4% 0.051 236.6)",
+        "tonalRamp": [
+          "oklch(16.0% 0.031 236.6)",
+          "oklch(27.0% 0.040 236.6)",
+          "oklch(39.0% 0.047 236.6)",
+          "oklch(51.0% 0.051 236.6)",
+          "oklch(63.0% 0.050 236.6)",
+          "oklch(75.0% 0.045 236.6)",
+          "oklch(86.0% 0.038 236.6)",
+          "oklch(95.0% 0.031 236.6)"
+        ]
+      },
+      "slate-mist": {
+        "role": "secondary",
+        "displayName": "Slate Mist",
+        "canonical": "oklch(82.3% 0.023 233.4)",
+        "tonalRamp": [
+          "oklch(16.0% 0.014 233.4)",
+          "oklch(27.0% 0.018 233.4)",
+          "oklch(39.0% 0.021 233.4)",
+          "oklch(51.0% 0.023 233.4)",
+          "oklch(63.0% 0.023 233.4)",
+          "oklch(75.0% 0.021 233.4)",
+          "oklch(86.0% 0.017 233.4)",
+          "oklch(95.0% 0.014 233.4)"
+        ]
+      },
+      "botanical-pine": {
+        "role": "tertiary",
+        "displayName": "Botanical Pine",
+        "canonical": "oklch(48.1% 0.096 159.3)",
+        "tonalRamp": [
+          "oklch(16.0% 0.059 159.3)",
+          "oklch(27.0% 0.075 159.3)",
+          "oklch(39.0% 0.088 159.3)",
+          "oklch(51.0% 0.095 159.3)",
+          "oklch(63.0% 0.094 159.3)",
+          "oklch(75.0% 0.085 159.3)",
+          "oklch(86.0% 0.071 159.3)",
+          "oklch(95.0% 0.057 159.3)"
+        ]
+      },
+      "ochre-amber": {
+        "role": "tertiary",
+        "displayName": "Ochre Amber",
+        "canonical": "oklch(53.2% 0.114 62.6)",
+        "tonalRamp": [
+          "oklch(16.0% 0.070 62.6)",
+          "oklch(27.0% 0.090 62.6)",
+          "oklch(39.0% 0.105 62.6)",
+          "oklch(51.0% 0.114 62.6)",
+          "oklch(63.0% 0.112 62.6)",
+          "oklch(75.0% 0.101 62.6)",
+          "oklch(86.0% 0.085 62.6)",
+          "oklch(95.0% 0.068 62.6)"
+        ]
+      },
+      "kiln-red": {
+        "role": "tertiary",
+        "displayName": "Kiln Red",
+        "canonical": "oklch(51.5% 0.168 28.8)",
+        "tonalRamp": [
+          "oklch(16.0% 0.103 28.8)",
+          "oklch(27.0% 0.132 28.8)",
+          "oklch(39.0% 0.155 28.8)",
+          "oklch(51.0% 0.167 28.8)",
+          "oklch(63.0% 0.165 28.8)",
+          "oklch(75.0% 0.149 28.8)",
+          "oklch(86.0% 0.125 28.8)",
+          "oklch(95.0% 0.100 28.8)"
+        ]
+      },
+      "warm-stoneware": {
+        "role": "neutral",
+        "displayName": "Warm Stoneware",
+        "canonical": "oklch(96.1% 0.007 88.6)",
+        "tonalRamp": [
+          "oklch(16.0% 0.004 88.6)",
+          "oklch(27.0% 0.005 88.6)",
+          "oklch(39.0% 0.006 88.6)",
+          "oklch(51.0% 0.007 88.6)",
+          "oklch(63.0% 0.007 88.6)",
+          "oklch(75.0% 0.006 88.6)",
+          "oklch(86.0% 0.005 88.6)",
+          "oklch(95.0% 0.004 88.6)"
+        ]
+      },
+      "ceramic-cream": {
+        "role": "neutral",
+        "displayName": "Ceramic Cream",
+        "canonical": "oklch(98.2% 0.004 91.4)",
+        "tonalRamp": [
+          "oklch(16.0% 0.003 91.4)",
+          "oklch(27.0% 0.003 91.4)",
+          "oklch(39.0% 0.004 91.4)",
+          "oklch(51.0% 0.004 91.4)",
+          "oklch(63.0% 0.004 91.4)",
+          "oklch(75.0% 0.004 91.4)",
+          "oklch(86.0% 0.003 91.4)",
+          "oklch(95.0% 0.002 91.4)"
+        ]
+      },
+      "pure-porcelain": {
+        "role": "neutral",
+        "displayName": "Pure Porcelain",
+        "canonical": "oklch(100.0% 0.000 0.0)",
+        "tonalRamp": [
+          "oklch(16.0% 0.000 0.0)",
+          "oklch(27.0% 0.000 0.0)",
+          "oklch(39.0% 0.000 0.0)",
+          "oklch(51.0% 0.000 0.0)",
+          "oklch(63.0% 0.000 0.0)",
+          "oklch(75.0% 0.000 0.0)",
+          "oklch(86.0% 0.000 0.0)",
+          "oklch(95.0% 0.000 0.0)"
+        ]
+      },
+      "stoneware-wash": {
+        "role": "neutral",
+        "displayName": "Stoneware Wash",
+        "canonical": "oklch(94.3% 0.011 89.7)",
+        "tonalRamp": [
+          "oklch(16.0% 0.007 89.7)",
+          "oklch(27.0% 0.009 89.7)",
+          "oklch(39.0% 0.010 89.7)",
+          "oklch(51.0% 0.011 89.7)",
+          "oklch(63.0% 0.011 89.7)",
+          "oklch(75.0% 0.010 89.7)",
+          "oklch(86.0% 0.008 89.7)",
+          "oklch(95.0% 0.007 89.7)"
+        ]
+      },
+      "espresso-ink": {
+        "role": "neutral",
+        "displayName": "Espresso Ink",
+        "canonical": "oklch(24.3% 0.007 48.4)",
+        "tonalRamp": [
+          "oklch(16.0% 0.004 48.4)",
+          "oklch(27.0% 0.006 48.4)",
+          "oklch(39.0% 0.007 48.4)",
+          "oklch(51.0% 0.007 48.4)",
+          "oklch(63.0% 0.007 48.4)",
+          "oklch(75.0% 0.006 48.4)",
+          "oklch(86.0% 0.005 48.4)",
+          "oklch(95.0% 0.004 48.4)"
+        ]
+      },
+      "umber-ink": {
+        "role": "neutral",
+        "displayName": "Umber Ink",
+        "canonical": "oklch(43.2% 0.013 63.1)",
+        "tonalRamp": [
+          "oklch(16.0% 0.008 63.1)",
+          "oklch(27.0% 0.011 63.1)",
+          "oklch(39.0% 0.012 63.1)",
+          "oklch(51.0% 0.013 63.1)",
+          "oklch(63.0% 0.013 63.1)",
+          "oklch(75.0% 0.012 63.1)",
+          "oklch(86.0% 0.010 63.1)",
+          "oklch(95.0% 0.008 63.1)"
+        ]
+      },
+      "pebble-ink": {
+        "role": "neutral",
+        "displayName": "Pebble Ink",
+        "canonical": "oklch(53.7% 0.018 67.4)",
+        "tonalRamp": [
+          "oklch(16.0% 0.011 67.4)",
+          "oklch(27.0% 0.014 67.4)",
+          "oklch(39.0% 0.016 67.4)",
+          "oklch(51.0% 0.018 67.4)",
+          "oklch(63.0% 0.017 67.4)",
+          "oklch(75.0% 0.016 67.4)",
+          "oklch(86.0% 0.013 67.4)",
+          "oklch(95.0% 0.011 67.4)"
+        ]
+      },
+      "ceramic-rim": {
+        "role": "neutral",
+        "displayName": "Ceramic Rim",
+        "canonical": "oklch(86.5% 0.018 84.6)",
+        "tonalRamp": [
+          "oklch(16.0% 0.011 84.6)",
+          "oklch(27.0% 0.014 84.6)",
+          "oklch(39.0% 0.016 84.6)",
+          "oklch(51.0% 0.017 84.6)",
+          "oklch(63.0% 0.017 84.6)",
+          "oklch(75.0% 0.016 84.6)",
+          "oklch(86.0% 0.013 84.6)",
+          "oklch(95.0% 0.010 84.6)"
+        ]
+      },
+      "clay-rim": {
+        "role": "neutral",
+        "displayName": "Clay Rim",
+        "canonical": "oklch(81.0% 0.021 81.8)",
+        "tonalRamp": [
+          "oklch(16.0% 0.013 81.8)",
+          "oklch(27.0% 0.017 81.8)",
+          "oklch(39.0% 0.020 81.8)",
+          "oklch(51.0% 0.021 81.8)",
+          "oklch(63.0% 0.021 81.8)",
+          "oklch(75.0% 0.019 81.8)",
+          "oklch(86.0% 0.016 81.8)",
+          "oklch(95.0% 0.013 81.8)"
+        ]
+      },
+      "strong-clay-rim": {
+        "role": "neutral",
+        "displayName": "Strong Clay Rim",
+        "canonical": "oklch(75.7% 0.023 80.7)",
+        "tonalRamp": [
+          "oklch(16.0% 0.014 80.7)",
+          "oklch(27.0% 0.018 80.7)",
+          "oklch(39.0% 0.022 80.7)",
+          "oklch(51.0% 0.023 80.7)",
+          "oklch(63.0% 0.023 80.7)",
+          "oklch(75.0% 0.021 80.7)",
+          "oklch(86.0% 0.017 80.7)",
+          "oklch(95.0% 0.014 80.7)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Consultation welcome headline (28px sm+) and Booking flow header (26px sm+) in Glazed Slate."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Lookup search hero, modal confirmation title, and error recovery heading."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card header titles, step headings (01–03), and live ledger title."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Primary Vietnamese UI copy, form values, service descriptions, and Markdown replies (14px–15px, max 65ch–68ch)."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form field labels, collar-tag species buttons, corridor badges, and status chips."
+      },
+      "mono": {
+        "displayName": "Mono / Tabular",
+        "purpose": "JetBrains Mono with tabular-nums for VND prices, kg tiers, slot times, dates, timings, and BK- booking codes."
+      }
+    },
+    "shadows": [
+      {
+        "name": "ledger-float",
+        "value": "0 6px 20px -8px rgba(35, 31, 29, 0.12)",
+        "purpose": "Subtle warm shadow on the sticky LivePriceSummaryCard sidebar over scrolling booking forms."
+      },
+      {
+        "name": "modal-scrim-lift",
+        "value": "0 20px 50px -15px rgba(35, 31, 29, 0.35)",
+        "purpose": "Deep modal lift on BookingConfirmationModal above the 60% espresso backdrop scrim (stripped on print)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "tab-crossfade",
+        "value": "160ms ease-out",
+        "purpose": "AnimatePresence opacity transition between Consultation, Booking, and Lookup tabs."
+      },
+      {
+        "name": "surface-enter",
+        "value": "180ms ease-out",
+        "purpose": "Fade and subtle 6px–12px vertical lift for chat messages, StatusPuppy, lookup cards, and confirmation modal."
+      },
+      {
+        "name": "disclosure-expand",
+        "value": "180ms–200ms ease-out",
+        "purpose": "Height and opacity disclosure for the collapsed RAG Inspector and Boarding duration tray."
+      },
+      {
+        "name": "color-transition",
+        "value": "150ms cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Tailwind transition-colors on buttons, collar tags, service cards, and form inputs."
+      },
+      {
+        "name": "stoneware-shimmer",
+        "value": "1.5s infinite",
+        "purpose": "Warm mineral skeleton sweep (#EFECE4 to #E3DDD0) while assistant reply initializes; disabled under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Terracotta collar-accent CTA for booking confirmation, quick-jump booking, and lookup search.",
+      "html": "<button type=\"button\" class=\"ds-btn-primary\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M22 11.08V12a10 10 0 1 1-5.93-9.14\"/><polyline points=\"22 4 12 14.01 9 11.01\"/></svg><span>Xác nhận đặt lịch hẹn</span></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 10px 16px; border: none; border-radius: 10px; background: var(--accent-collar, #B84A2D); color: var(--surface-pure, #FFFFFF); font-family: 'Be Vietnam Pro', system-ui, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: background-color 150ms ease; } .ds-btn-primary:hover { background: var(--accent-collar-hover, #9E3D23); } .ds-btn-primary:focus-visible { outline: 2px solid var(--shell-bg, #1E3A4C); outline-offset: 2px; } .ds-btn-primary:active { transform: translateY(1px); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Glazed-slate action button for structural utilities and page recovery.",
+      "html": "<button type=\"button\" class=\"ds-btn-secondary\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"/><path d=\"M3 3v5h5\"/></svg><span>Tải lại trang</span></button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 10px 16px; border: none; border-radius: 10px; background: var(--shell-bg, #1E3A4C); color: var(--surface-card, #FAF9F6); font-family: 'Be Vietnam Pro', system-ui, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: background-color 150ms ease; } .ds-btn-secondary:hover { background: var(--shell-surface, #162C3A); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--shell-bg, #1E3A4C); outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Ceramic outline control for secondary navigation, printing, and code lookup.",
+      "html": "<button type=\"button\" class=\"ds-btn-outline\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg><span>Tra cứu mã đặt chỗ (BK-)</span></button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 40px; padding: 10px 16px; border: 1px solid var(--border-strong, #B8AFA0); border-radius: 10px; background: var(--surface-card, #FAF9F6); color: var(--ink-primary, #231F1D); font-family: 'Be Vietnam Pro', system-ui, sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: background-color 150ms ease, border-color 150ms ease; } .ds-btn-outline:hover { background: var(--surface-subtle, #EFECE4); border-color: var(--shell-bg, #1E3A4C); } .ds-btn-outline:focus-visible { outline: 2px solid var(--shell-bg, #1E3A4C); outline-offset: 2px; }"
+    },
+    {
+      "name": "Glazed-Slate Navigation",
+      "kind": "nav",
+      "refersTo": "nav-tab",
+      "description": "Top 64px glazed-slate bar housing the collar-tag emblem, segmented workflow tabs, and opening hours.",
+      "html": "<header class=\"ds-nav-bar\"><div class=\"ds-brand\"><svg viewBox=\"0 0 36 36\" width=\"34\" height=\"34\" aria-hidden=\"true\"><circle cx=\"18\" cy=\"18\" r=\"17\" fill=\"#B84A2D\" stroke=\"#F4F2ED\" stroke-width=\"1.5\"/><circle cx=\"18\" cy=\"5.5\" r=\"1.75\" fill=\"#1E3A4C\" stroke=\"#F4F2ED\" stroke-width=\"1\"/><ellipse cx=\"18\" cy=\"21.5\" rx=\"5.2\" ry=\"4.4\" fill=\"#FAF9F6\"/><circle cx=\"11.5\" cy=\"15.5\" r=\"2.1\" fill=\"#FAF9F6\"/><circle cx=\"15.5\" cy=\"12.5\" r=\"2.1\" fill=\"#FAF9F6\"/><circle cx=\"20.5\" cy=\"12.5\" r=\"2.1\" fill=\"#FAF9F6\"/><circle cx=\"24.5\" cy=\"15.5\" r=\"2.1\" fill=\"#FAF9F6\"/></svg><div><span class=\"ds-brand-title\">PETCARE</span><span class=\"ds-brand-sub\">Phòng Khám &amp; Spa Thú Cưng</span></div></div><nav class=\"ds-tab-rail\" role=\"tablist\"><button type=\"button\" role=\"tab\" aria-selected=\"true\" class=\"ds-tab ds-tab-active\">Tư Vấn AI</button><button type=\"button\" role=\"tab\" aria-selected=\"false\" class=\"ds-tab\">Đặt Lịch Hẹn</button><button type=\"button\" role=\"tab\" aria-selected=\"false\" class=\"ds-tab\">Tra Cứu</button></nav><div class=\"ds-hours-pill\"><span class=\"ds-hours-dot\"></span><span>Mở cửa <strong>08:00–19:00</strong></span></div></header>",
+      "css": ".ds-nav-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 20px; background: var(--shell-bg, #1E3A4C); border-bottom: 1px solid #142835; color: var(--shell-ink, #F4F2ED); font-family: 'Be Vietnam Pro', system-ui, sans-serif; } .ds-brand { display: flex; align-items: center; gap: 10px; } .ds-brand-title { display: block; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; color: var(--surface-card, #FAF9F6); line-height: 1.15; } .ds-brand-sub { display: block; font-size: 11px; color: var(--shell-muted, #B7C8D2); } .ds-tab-rail { display: flex; gap: 4px; padding: 4px; background: var(--shell-surface, #162C3A); border: 1px solid var(--shell-border, #2C4D61); border-radius: 10px; } .ds-tab { min-height: 36px; padding: 6px 14px; border: none; border-radius: 7px; background: transparent; color: #D5E0E6; font-size: 13px; font-weight: 600; cursor: pointer; transition: background-color 150ms ease, color 150ms ease; } .ds-tab:hover { color: #FFFFFF; background: #234357; } .ds-tab:focus-visible { outline: 2px solid var(--surface-card, #FAF9F6); outline-offset: 1px; } .ds-tab-active { background: var(--accent-collar, #B84A2D); color: #FFFFFF; } .ds-tab-active:hover { background: var(--accent-collar-hover, #9E3D23); } .ds-hours-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 9999px; background: var(--shell-surface, #162C3A); border: 1px solid var(--shell-border, #2C4D61); font-size: 12px; color: #D5E0E6; } .ds-hours-pill strong { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; color: var(--surface-card, #FAF9F6); } .ds-hours-dot { width: 8px; height: 8px; border-radius: 9999px; background: #3BB273; }"
+    },
+    {
+      "name": "Collar-Tag Control",
+      "kind": "chip",
+      "refersTo": "collar-tag",
+      "description": "Pill-shaped species and weight-tier selectors modeled on engraved pet collar tags.",
+      "html": "<div class=\"ds-tag-group\"><button type=\"button\" class=\"ds-tag ds-tag-species-active\" aria-pressed=\"true\">Cún cưng</button><button type=\"button\" class=\"ds-tag\" aria-pressed=\"false\">Mèo cưng</button><button type=\"button\" class=\"ds-tag ds-tag-weight ds-tag-weight-active\" aria-pressed=\"true\">5 kg</button><button type=\"button\" class=\"ds-tag ds-tag-weight\" aria-pressed=\"false\">10 kg</button></div>",
+      "css": ".ds-tag-group { display: flex; flex-wrap: wrap; gap: 6px; font-family: 'Be Vietnam Pro', system-ui, sans-serif; } .ds-tag { padding: 7px 14px; border-radius: 9999px; border: 1px solid #C8C0B2; background: var(--surface-pure, #FFFFFF); color: var(--ink-primary, #231F1D); font-size: 12px; font-weight: 600; cursor: pointer; transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease; } .ds-tag:hover { border-color: var(--shell-bg, #1E3A4C); background: var(--surface-subtle, #EFECE4); } .ds-tag:focus-visible { outline: 2px solid var(--shell-bg, #1E3A4C); outline-offset: 2px; } .ds-tag-species-active { background: var(--shell-bg, #1E3A4C); border-color: var(--shell-bg, #1E3A4C); color: var(--surface-card, #FAF9F6); } .ds-tag-weight { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; } .ds-tag-weight-active { background: var(--accent-collar, #B84A2D); border-color: var(--accent-collar, #B84A2D); color: #FFFFFF; }"
+    },
+    {
+      "name": "Ceramic Text Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Porcelain form input with clay-rim border, icon prefix, and glazed-slate focus halo.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-label\" for=\"ds-phone\">Số điện thoại liên hệ <span class=\"ds-req\">*</span></label><div class=\"ds-input-wrap\"><svg class=\"ds-input-icon\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"/></svg><input id=\"ds-phone\" type=\"tel\" class=\"ds-input\" value=\"0987654321\" placeholder=\"VD: 0987654321\" /></div></div>",
+      "css": ".ds-field { font-family: 'Be Vietnam Pro', system-ui, sans-serif; max-width: 320px; } .ds-label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-primary, #231F1D); margin-bottom: 6px; } .ds-req { color: var(--state-error, #B43228); } .ds-input-wrap { position: relative; } .ds-input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ink-muted, #756C63); pointer-events: none; } .ds-input { width: 100%; padding: 10px 14px 10px 38px; background: var(--surface-pure, #FFFFFF); border: 1px solid #C8C0B2; border-radius: 10px; font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; font-size: 14px; color: var(--ink-primary, #231F1D); transition: border-color 150ms ease, box-shadow 150ms ease; } .ds-input::placeholder { color: var(--ink-muted, #756C63); font-family: 'Be Vietnam Pro', sans-serif; } .ds-input:focus { outline: none; border-color: var(--shell-bg, #1E3A4C); box-shadow: 0 0 0 2px rgba(30, 58, 76, 0.15); }"
+    },
+    {
+      "name": "Service Selection Tile",
+      "kind": "card",
+      "refersTo": "service-tile",
+      "description": "Selectable porcelain service option with check state, Spa corridor square, and weight-tiered price.",
+      "html": "<button type=\"button\" class=\"ds-service-tile ds-service-selected\" aria-pressed=\"true\"><div class=\"ds-service-top\"><div class=\"ds-service-head\"><span class=\"ds-checkbox\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span><span class=\"ds-service-title\">Tắm Spa &amp; Chăm Sóc Lông</span></div><span class=\"ds-corridor-spa\" title=\"Spa\"></span></div><p class=\"ds-service-desc\">Tắm thảo mộc, sấy phồng, chải lông mượt, xịt dưỡng thơm lâu tự nhiên.</p><div class=\"ds-service-foot\"><span class=\"ds-price\">180.000đ</span><span class=\"ds-tier\">mức 5 kg</span></div></button>",
+      "css": ".ds-service-tile { display: flex; flex-direction: column; text-align: left; width: 100%; max-width: 340px; padding: 16px; background: var(--surface-pure, #FFFFFF); border: 1px solid var(--border-rim, #D8D2C6); border-radius: 11px; font-family: 'Be Vietnam Pro', system-ui, sans-serif; cursor: pointer; transition: border-color 150ms ease, background-color 150ms ease; } .ds-service-tile:hover { border-color: rgba(30, 58, 76, 0.6); background: var(--surface-card, #FAF9F6); } .ds-service-tile:focus-visible { outline: 2px solid var(--shell-bg, #1E3A4C); outline-offset: 2px; } .ds-service-selected { border-color: var(--shell-bg, #1E3A4C); box-shadow: 0 0 0 1px var(--shell-bg, #1E3A4C); } .ds-service-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; } .ds-service-head { display: flex; align-items: center; gap: 8px; } .ds-checkbox { width: 20px; height: 20px; border-radius: 6px; background: var(--shell-bg, #1E3A4C); color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; } .ds-service-title { font-size: 14px; font-weight: 700; color: var(--ink-primary, #231F1D); } .ds-corridor-spa { width: 10px; height: 10px; border-radius: 2px; background: var(--corridor-spa, #B84A2D); margin-top: 4px; flex-shrink: 0; } .ds-service-desc { font-size: 12px; color: var(--ink-secondary, #564F49); line-height: 1.5; margin: 0 0 12px 28px; } .ds-service-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 10px; margin-left: 28px; border-top: 1px solid #EAE5DC; } .ds-price { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; font-size: 14px; font-weight: 700; color: var(--shell-bg, #1E3A4C); } .ds-tier { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; font-size: 11px; color: var(--ink-muted, #756C63); }"
+    },
+    {
+      "name": "Itemized Price Ledger",
+      "kind": "custom",
+      "refersTo": "ledger-header",
+      "description": "Signature sticky booking summary pairing a glazed-slate header with tabular itemized totals.",
+      "html": "<aside class=\"ds-ledger\"><div class=\"ds-ledger-head\"><div><h3 class=\"ds-ledger-title\">Phiếu Dịch Vụ Tạm Tính</h3><p class=\"ds-ledger-sub\">Cập nhật tự động theo cân nặng</p></div><span class=\"ds-ledger-badge\">2 dịch vụ</span></div><div class=\"ds-ledger-body\"><div class=\"ds-ledger-rows\"><div class=\"ds-ledger-row\"><span>Tắm Spa &amp; Chăm Sóc Lông</span><strong>180.000đ</strong></div><div class=\"ds-ledger-row\"><span>Cắt &amp; Mài Móng An Toàn</span><strong>50.000đ</strong></div></div><div class=\"ds-ledger-total\"><span>TỔNG TIỀN DỰ KIẾN</span><strong>230.000đ</strong></div></div></aside>",
+      "css": ".ds-ledger { width: 100%; max-width: 360px; background: var(--surface-card, #FAF9F6); border: 1px solid #C8C0B2; border-radius: 14px; overflow: hidden; box-shadow: 0 6px 20px -8px rgba(35, 31, 29, 0.12); font-family: 'Be Vietnam Pro', system-ui, sans-serif; } .ds-ledger-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 16px 20px; background: var(--shell-bg, #1E3A4C); border-bottom: 1px solid #142835; color: var(--surface-card, #FAF9F6); } .ds-ledger-title { margin: 0; font-size: 15px; font-weight: 700; } .ds-ledger-sub { margin: 2px 0 0; font-size: 12px; color: var(--shell-muted, #B7C8D2); } .ds-ledger-badge { padding: 4px 10px; border-radius: 7px; background: var(--shell-surface, #162C3A); border: 1px solid var(--shell-border, #2C4D61); font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; font-size: 12px; font-weight: 600; } .ds-ledger-body { padding: 18px 20px; } .ds-ledger-rows { background: var(--surface-pure, #FFFFFF); border: 1px solid var(--border-rim, #D8D2C6); border-radius: 9px; padding: 0 12px; } .ds-ledger-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; font-size: 13px; color: var(--ink-primary, #231F1D); font-weight: 600; border-bottom: 1px solid #EAE5DC; } .ds-ledger-row:last-child { border-bottom: none; } .ds-ledger-row strong { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; color: var(--shell-bg, #1E3A4C); } .ds-ledger-total { display: flex; align-items: baseline; justify-content: space-between; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-strong, #B8AFA0); font-size: 13px; font-weight: 700; color: var(--ink-primary, #231F1D); letter-spacing: 0.03em; } .ds-ledger-total strong { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; font-size: 22px; color: var(--accent-collar, #B84A2D); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Stoneware & Collar Tag",
+    "overview": "Petcare models a modern Vietnamese veterinary clinic and spa reception desk on everyday pet-home stoneware and engraved collar hardware. Warm stoneware grounds, matte ceramic panels, and crisp 1px clay rims establish clinical order without sterile hospital coldness, while deep glazed-slate headers and terracotta collar-tag accents anchor every decision point across AI consultation (*Tư Vấn AI*), live-priced appointment booking (*Đặt Lịch Hẹn*), and self-service ticket lookup (*Tra Cứu*).\n\nThe system favors density with breathing room: pet owners see transparent weight-tiered prices in aligned tabular numerals, clear color-coded service corridors (Spa, Medical, Boarding), and a calm workspace free of neon-teal healthcare tropes, floating cartoon sticker patterns, RGB AI glows, and heavy drop shadows. Motion stays brisk and respectful (`160ms–200ms` transitions, `MotionConfig reducedMotion=\"user\"`, and `@media (prefers-reduced-motion: reduce)` fallbacks), while technical RAG metadata remains tucked behind an optional collapsed inspector toggle.",
+    "keyCharacteristics": [
+      "Tactile four-step warm ceramic surface ladder (`#F4F2ED` ground, `#FAF9F6` card, `#FFFFFF` interactive inset, `#EFECE4` recessed tray) bounded by 1px stone borders (`#D8D2C6`, `#C8C0B2`, `#B8AFA0`).",
+      "Deep glazed-slate (`#1E3A4C` / `#162C3A`) reserved for structural navigation bars, ticket headers, step index badges, and selected control states.",
+      "Terracotta collar accent (`#B84A2D` / `#9E3D23`) reserved for primary conversion CTAs, active weight tags, range thumbs, and estimated price totals.",
+      "Semantic 3-corridor color coding (`#B84A2D` Spa, `#1F6E4A` Veterinary Medical, `#1E3A4C` 24h Boarding) rendered as compact `10px × 10px` square markers and dot badges.",
+      "Native Vietnamese diacritic clarity with `Be Vietnam Pro` paired with tabular `JetBrains Mono` for VND currency, weight tiers, time slots, and `BK-` reservation codes."
+    ],
+    "rules": [
+      {
+        "name": "The Restraint on Terracotta Rule",
+        "body": "Reserve Collar Terracotta (`#B84A2D`) strictly for primary submission CTAs, active weight collar tags, estimated price totals, and Spa corridor markers—never flood entire cards or headers with terracotta.",
+        "section": "colors"
+      },
+      {
+        "name": "The Corridor Marker Rule",
+        "body": "Distinguish the three care domains (**Spa** `#B84A2D`, **Khám bệnh** `#1F6E4A`, **Lưu trú 24h** `#1E3A4C`) exclusively via compact `10px × 10px` square markers (`rounded-[2px]`) or `6px` circular tag dots (`rounded-full`) paired with neutral `#FFFFFF` / `#EFECE4` card fills.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ceramic-Over-Stoneware Rule",
+        "body": "Establish spatial hierarchy through tonal steps (`#F4F2ED` -> `#FAF9F6` -> `#FFFFFF`) bounded by 1px borders (`#D8D2C6`) before reaching for drop shadows.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Ledger Rule",
+        "body": "Every currency amount, weight preset, time slot, date string, and booking code MUST pair `JetBrains Mono` with `font-variant-numeric: tabular-nums` so dynamic updates never jitter horizontal layout.",
+        "section": "typography"
+      },
+      {
+        "name": "The Vietnamese Diacritic Clarity Rule",
+        "body": "Never set uppercase micro-labels smaller than `11px` on primary interactive controls or navigation tabs, preserving crisp tone-mark legibility across `Be Vietnam Pro`.",
+        "section": "typography"
+      },
+      {
+        "name": "The Single-Viewport Desk Rule",
+        "body": "Keep the AI consultation workspace pinned cleanly within the desktop viewport (`calc(100vh - 124px)`) so the header, message feed, composer, and live collar-tag rail stay immediately accessible without page-level scroll fatigue.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Rest cards, service options, inputs, and chat bubbles flat against `#FAF9F6` or `#FFFFFF` with 1px `#D8D2C6` / `#C8C0B2` borders; reserve elevation shadows strictly for sticky ledgers and modal overlays.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Engraved Tag Silhouette Rule",
+        "body": "Render pet profile selectors (species and weight tiers) as full-pill collar tags (`9999px` radius) and functional form inputs/buttons as `10px`-radius machined controls so tactile hardware cues remain distinct from form fields.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** enforce the four-tier stoneware surface hierarchy (`#F4F2ED` ground -> `#FAF9F6` card -> `#FFFFFF` tile/input -> `#EFECE4` recessed header/tray) separated by 1px `#D8D2C6` / `#C8C0B2` borders.",
+      "**Do** apply `JetBrains Mono` with `tabular-nums` on every price, weight preset, time slot, date badge, and `BK-` booking code.",
+      "**Do** mark Spa (`#B84A2D`), Khám bệnh (`#1F6E4A`), and Lưu trú 24h (`#1E3A4C`) consistently with compact square or dot corridor markers.",
+      "**Do** keep terracotta (`#B84A2D`) focused on primary conversion buttons, active weight tags, and estimated totals so visual hierarchy stays unmistakable.",
+      "**Do** preserve `MotionConfig reducedMotion=\"user\"`, `@media (prefers-reduced-motion: reduce)` guards, `focus-visible` outlines (`#1E3A4C` or `#FAF9F6`), and `#printable-ticket` print isolation.",
+      "**Do** keep technical RAG inspection collapsed behind an explicit `Chi tiết nguồn RAG` toggle inside assistant replies."
+    ],
+    "donts": [
+      "**Don't** introduce generic neon-teal gradients, pastel rainbow badges, or glowing AI borders that break the calm mineral stoneware palette.",
+      "**Don't** stack drop shadows on standard cards, service tiles, inputs, or chat bubbles; stay flat-by-default with 1px ceramic rims.",
+      "**Don't** use Terracotta (`#B84A2D`) as a full-width header background or container fill (keep dark structural bars in Glazed Slate `#1E3A4C`).",
+      "**Don't** render Vietnamese UI text in micro sizes below `11px` or drop `tabular-nums` from dynamic numeric ledgers.",
+      "**Don't** replace the bespoke collar-tag emblem or `StatusPuppy` SVG with generic icon-font glyphs or ungrounded stock photography."
+    ]
+  }
+}
