@@ -15,20 +15,23 @@ export default function ErrorBoundary({
   }, [error]);
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 p-4">
-      <div className="max-w-md w-full bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-100 text-center">
-        <div className="w-16 h-16 bg-rose-50 text-rose-500 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-rose-100">
-          <AlertTriangle size={32} />
+    <div className="min-h-screen w-full flex items-center justify-center bg-surface-ground p-4">
+      <div className="max-w-md w-full bg-surface-card rounded-[14px] p-6 sm:p-8 border border-rim text-center">
+        <div className="w-14 h-14 bg-state-error-soft text-state-error-ink rounded-[12px] flex items-center justify-center mx-auto mb-4 border border-state-error-border">
+          <AlertTriangle size={28} />
         </div>
-        <h2 className="text-xl font-black text-slate-800 mb-2">Đã xảy ra sự cố tải trang</h2>
-        <p className="text-xs sm:text-sm text-slate-500 mb-6 leading-relaxed">
-          Hệ thống gặp trục trặc khi kết nối hoặc hiển thị dữ liệu. Vui lòng nhấn nút thử lại bên dưới.
+        <h2 className="text-lg sm:text-xl font-bold text-ink-primary mb-2">
+          Đã xảy ra sự cố tải trang
+        </h2>
+        <p className="text-xs sm:text-sm text-ink-secondary mb-6 leading-relaxed">
+          Hệ thống gặp trục trặc khi kết nối hoặc hiển thị dữ liệu. Vui lòng nhấn nút tải lại bên dưới.
         </p>
         <button
+          type="button"
           onClick={() => reset()}
-          className="w-full py-3 px-4 bg-teal-500 hover:bg-teal-600 active:scale-95 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-teal-500/20"
+          className="w-full py-2.5 px-4 bg-shell-bg hover:bg-shell-surface text-shell-ink-bright font-semibold text-sm rounded-[10px] transition-colors flex items-center justify-center gap-2 cursor-pointer"
         >
-          <RotateCcw size={16} />
+          <RotateCcw size={15} />
           <span>Tải lại trang</span>
         </button>
       </div>

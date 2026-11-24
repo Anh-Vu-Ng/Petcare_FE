@@ -93,7 +93,7 @@ export function computeClientEstimate(
       // Boarding discounts
       if (durationDays >= 11) {
         discountPercentage = 15;
-        freeGifts.push('1 Suất Tắm Spa & Chăm sóc lông Miễn Phí 🎁');
+        freeGifts.push('1 Suất Tắm Spa & Chăm sóc lông Miễn Phí');
       } else if (durationDays >= 6) {
         discountPercentage = 10;
       } else if (durationDays >= 4) {

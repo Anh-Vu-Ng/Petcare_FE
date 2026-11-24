@@ -8,14 +8,14 @@ interface MessageListProps {
   chatStatus: ChatStatus;
 }
 
-  export function MessageList({ messages, chatStatus }: MessageListProps) {
+export function MessageList({ messages, chatStatus }: MessageListProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     if (containerRef.current) {
       containerRef.current.scrollTo({
         top: containerRef.current.scrollHeight,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   };
@@ -25,11 +25,11 @@ interface MessageListProps {
   }, [messages, chatStatus]);
 
   return (
-    <div 
+    <div
       ref={containerRef}
-      className="flex-1 overflow-y-auto p-4 sm:p-6 bg-slate-50/50 no-scrollbar"
+      className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 bg-surface-ground/50 no-scrollbar"
     >
-      <div className="w-full flex flex-col py-4">
+      <div className="w-full max-w-3xl mx-auto flex flex-col py-2">
         {messages.map((message) => (
           <MessageBubble key={message.id} message={message} />
         ))}

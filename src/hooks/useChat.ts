@@ -7,6 +7,7 @@ import { ChatStatus } from '../components/chat/StatusPuppy';
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isHistoryLoading, setIsHistoryLoading] = useState(false);
   const [chatStatus, setChatStatus] = useState<ChatStatus>('idle');
   const [sessionId, setSessionId] = useState<string | null>(null);
   
@@ -22,15 +23,15 @@ export function useChat() {
     }
     setSessionId(sid);
 
-    // Load history
+    // Load history without locking MessageInput
     const loadHistory = async () => {
       if (sid) {
-        setIsLoading(true);
+        setIsHistoryLoading(true);
         const history = await chatApi.getHistory(sid);
         if (history && history.length > 0) {
           setMessages(history);
         }
-        setIsLoading(false);
+        setIsHistoryLoading(false);
       }
     };
 
@@ -153,6 +154,7 @@ export function useChat() {
   return {
     messages,
     isLoading,
+    isHistoryLoading,
     sendMessage,
     chatStatus,
     clearChat

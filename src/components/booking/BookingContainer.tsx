@@ -1,24 +1,29 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { bookingFormSchema, BookingFormData, BookingDetail } from '../../types/booking';
+import {
+  bookingFormSchema,
+  BookingFormData,
+  BookingDetail,
+  PetType,
+} from '../../types/booking';
 import { bookingApi } from '../../services/bookingApi';
 import { CustomerPetInfoCard } from './CustomerPetInfoCard';
 import { ServiceSelectorGrid } from './ServiceSelectorGrid';
 import { DateTimeSlotPicker } from './DateTimeSlotPicker';
 import { LivePriceSummaryCard } from './LivePriceSummaryCard';
 import { BookingConfirmationModal } from './BookingConfirmationModal';
-import { Sparkles, CalendarHeart } from 'lucide-react';
 
 interface BookingContainerProps {
   onSwitchToChat?: () => void;
   prefillService?: string;
+  initialPetType?: PetType;
+  initialWeightKg?: number;
 }
 
-// Format YYYY-MM-DD for today
 function getTodayISO(): string {
   const d = new Date();
   const y = d.getFullYear();
@@ -27,7 +32,12 @@ function getTodayISO(): string {
   return `${y}-${m}-${day}`;
 }
 
-export function BookingContainer({ onSwitchToChat, prefillService }: BookingContainerProps) {
+export function BookingContainer({
+  onSwitchToChat,
+  prefillService,
+  initialPetType = 'dog',
+  initialWeightKg = 5,
+}: BookingContainerProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [createdBooking, setCreatedBooking] = useState<BookingDetail | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,8 +49,8 @@ export function BookingContainer({ onSwitchToChat, prefillService }: BookingCont
       customer_phone: '',
       customer_email: '',
       pet_name: '',
-      pet_type: 'dog',
-      weight_kg: 5,
+      pet_type: initialPetType,
+      weight_kg: initialWeightKg,
       services: prefillService ? [prefillService] : ['bath'],
       booking_date: getTodayISO(),
       booking_time: '',
@@ -50,7 +60,21 @@ export function BookingContainer({ onSwitchToChat, prefillService }: BookingCont
     mode: 'onTouched',
   });
 
-  const { handleSubmit, reset } = methods;
+  const { handleSubmit, reset, setValue } = methods;
+
+  useEffect(() => {
+    if (prefillService) {
+      setValue('services', [prefillService], { shouldValidate: true });
+    }
+  }, [prefillService, setValue]);
+
+  useEffect(() => {
+    setValue('pet_type', initialPetType, { shouldValidate: true });
+  }, [initialPetType, setValue]);
+
+  useEffect(() => {
+    setValue('weight_kg', initialWeightKg, { shouldValidate: true });
+  }, [initialWeightKg, setValue]);
 
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true);
@@ -59,13 +83,15 @@ export function BookingContainer({ onSwitchToChat, prefillService }: BookingCont
       if (res.success && res.booking) {
         setCreatedBooking(res.booking);
         setIsModalOpen(true);
-        toast.success('Đặt lịch hẹn chăm sóc thú cưng thành công! 🎉');
+        toast.success('Đặt lịch hẹn chăm sóc thú cưng thành công!');
       } else {
         toast.error(res.message || 'Không thể tạo đơn đặt lịch, vui lòng thử lại.');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Booking submission failed:', error);
-      toast.error(error.message || 'Có lỗi xảy ra trong quá trình đặt lịch.');
+      const message =
+        error instanceof Error ? error.message : 'Có lỗi xảy ra trong quá trình đặt lịch.';
+      toast.error(message);
     } finally {
       setIsSubmitting(false);
     }
@@ -77,8 +103,8 @@ export function BookingContainer({ onSwitchToChat, prefillService }: BookingCont
       customer_phone: '',
       customer_email: '',
       pet_name: '',
-      pet_type: 'dog',
-      weight_kg: 5,
+      pet_type: initialPetType,
+      weight_kg: initialWeightKg,
       services: ['bath'],
       booking_date: getTodayISO(),
       booking_time: '',
@@ -91,40 +117,48 @@ export function BookingContainer({ onSwitchToChat, prefillService }: BookingCont
 
   return (
     <div className="w-full">
-      {/* Banner / Header Title */}
-      <div className="mb-6 text-center max-w-2xl mx-auto">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-teal-700 text-xs font-bold mb-2">
-          <CalendarHeart size={14} className="text-teal-600" />
-          <span>Đặt Lịch Hẹn Trực Tuyến Tiết Kiệm Thời Gian</span>
+      {/* Crisp Operate Workspace Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-rim pb-4 mb-6">
+        <div>
+          <h1 className="text-2xl sm:text-[26px] font-bold text-ink-slate tracking-[-0.02em]">
+            Đặt Lịch Chăm Sóc &amp; Khám Bệnh
+          </h1>
+          <p className="text-xs sm:text-sm text-ink-secondary mt-1 leading-relaxed">
+            Điền thông tin bé cưng và chọn khung giờ phù hợp. Chi phí được cập nhật tự động theo cân nặng.
+          </p>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight">
-          Chăm Sóc & Khám Bệnh Thú Cưng Petcare
-        </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed">
-          Điền thông tin bé cưng và chọn khung giờ phù hợp. Chi phí sẽ được tự động tính toán tức thì theo cân nặng.
-        </p>
+
+        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
+          <span className="px-2.5 py-1 rounded-[7px] bg-surface-card border border-rim text-ink-primary">
+            1. Hồ sơ bé
+          </span>
+          <span className="px-2.5 py-1 rounded-[7px] bg-surface-card border border-rim text-ink-primary">
+            2. Dịch vụ
+          </span>
+          <span className="px-2.5 py-1 rounded-[7px] bg-surface-card border border-rim text-ink-primary">
+            3. Giờ hẹn
+          </span>
+        </div>
       </div>
 
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Form Sections - Single Column Flow */}
-          <div className="max-w-4xl mx-auto flex flex-col gap-6 pt-2">
-            {/* Section 1: Customer & Pet Information */}
-            <CustomerPetInfoCard />
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 items-start">
+            {/* Form Steps Column */}
+            <div className="flex flex-col gap-5 min-w-0">
+              <CustomerPetInfoCard />
+              <ServiceSelectorGrid />
+              <DateTimeSlotPicker />
+            </div>
 
-            {/* Section 2: Service Selection Grid */}
-            <ServiceSelectorGrid />
-
-            {/* Section 3: Date & Time Picker */}
-            <DateTimeSlotPicker />
-
-            {/* Section 4: Live Pricing Ticket - Bottom of page */}
-            <LivePriceSummaryCard isSubmitting={isSubmitting} />
+            {/* Sticky Live Ledger Sidebar */}
+            <div className="lg:sticky lg:top-[84px]">
+              <LivePriceSummaryCard isSubmitting={isSubmitting} />
+            </div>
           </div>
         </form>
       </FormProvider>
 
-      {/* Booking Confirmation Pass Modal */}
       <BookingConfirmationModal
         booking={createdBooking}
         isOpen={isModalOpen}

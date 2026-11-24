@@ -4,164 +4,165 @@ import React, { useState } from 'react';
 import { ChatBox } from '../components/chat/ChatBox';
 import { BookingContainer } from '../components/booking/BookingContainer';
 import { BookingLookupTab } from '../components/booking/BookingLookupTab';
-import { MessageSquare, CalendarCheck, Search, Sparkles, Heart } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { ThemeToggle } from '../components/ui/ThemeToggle';
+import { PetType } from '../types/booking';
+import { MessageSquare, CalendarCheck, Search } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { EASE_OUT } from '../utils/motion';
 
 type TabKey = 'chat' | 'booking' | 'lookup';
+const TAB_ORDER: TabKey[] = ['chat', 'booking', 'lookup'];
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabKey>('chat');
+  const [direction, setDirection] = useState<number>(1);
+  const [hasSwitched, setHasSwitched] = useState<boolean>(false);
   const [prefillService, setPrefillService] = useState<string | undefined>(undefined);
+  const [petType] = useState<PetType>('dog');
+  const [weightKg] = useState<number>(5);
+  const reduce = useReducedMotion();
+
+  const changeTab = (nextTab: TabKey) => {
+    if (nextTab === activeTab) return;
+    const prevIdx = TAB_ORDER.indexOf(activeTab);
+    const nextIdx = TAB_ORDER.indexOf(nextTab);
+    setDirection(nextIdx >= prevIdx ? 1 : -1);
+    setHasSwitched(true);
+    setActiveTab(nextTab);
+  };
 
   const handleOpenBooking = (serviceId?: string) => {
     setPrefillService(serviceId);
-    setActiveTab('booking');
+    changeTab('booking');
   };
 
+  const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = [
+    { key: 'chat', label: 'Tư Vấn AI', icon: <MessageSquare size={16} /> },
+    { key: 'booking', label: 'Đặt Lịch Hẹn', icon: <CalendarCheck size={16} /> },
+    { key: 'lookup', label: 'Tra Cứu', icon: <Search size={16} /> },
+  ];
+
   return (
-    <main className="min-h-screen w-full bg-slate-50/60 text-[#1e293b] flex flex-col relative overflow-x-hidden">
-      {/* Background cute blur decoration blobs */}
-      <div className="fixed top-[-10%] left-[-10%] w-[45%] h-[45%] bg-teal-200/20 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="fixed bottom-[-10%] right-[-10%] w-[35%] h-[35%] bg-indigo-200/20 rounded-full blur-3xl pointer-events-none -z-10" />
-
-      {/* Cute Floating Animal SVG Decorations (Background) */}
-      <div className="fixed left-[3%] top-[18%] hidden lg:block animate-float-slow pointer-events-none select-none -z-10 opacity-70">
-        <svg viewBox="0 0 100 100" className="w-18 h-18 text-teal-400/40 fill-current">
-          <polygon points="20,40 35,10 45,35" />
-          <polygon points="80,40 65,10 55,35" />
-          <ellipse cx="50" cy="55" rx="35" ry="25" />
-          <circle cx="38" cy="50" r="4.5" fill="#475569" />
-          <circle cx="62" cy="50" r="4.5" fill="#475569" />
-          <polygon points="50,58 47,55 53,55" fill="#f43f5e" />
-          <path d="M47,62 Q50,65 53,62" stroke="#475569" strokeWidth="2.5" fill="none" />
-          <line x1="20" y1="55" x2="4" y2="53" stroke="#475569" strokeWidth="1.5" opacity="0.6" />
-          <line x1="20" y1="60" x2="2" y2="62" stroke="#475569" strokeWidth="1.5" opacity="0.6" />
-          <line x1="80" y1="55" x2="96" y2="53" stroke="#475569" strokeWidth="1.5" opacity="0.6" />
-          <line x1="80" y1="60" x2="98" y2="62" stroke="#475569" strokeWidth="1.5" opacity="0.6" />
-        </svg>
-      </div>
-
-      <div className="fixed right-[3%] top-[20%] hidden lg:block animate-float-slower pointer-events-none select-none -z-10 opacity-70">
-        <svg viewBox="0 0 100 100" className="w-18 h-18 text-indigo-400/40 fill-current">
-          <ellipse cx="50" cy="50" rx="32" ry="28" />
-          <path d="M18,35 Q8,55 18,65" stroke="#818cf8" strokeWidth="8" strokeLinecap="round" fill="none" />
-          <path d="M82,35 Q92,55 82,65" stroke="#818cf8" strokeWidth="8" strokeLinecap="round" fill="none" />
-          <circle cx="38" cy="45" r="4.5" fill="#475569" />
-          <circle cx="62" cy="45" r="4.5" fill="#475569" />
-          <ellipse cx="50" cy="60" rx="12" ry="9" fill="#f8fafc" />
-          <ellipse cx="50" cy="56" rx="5" ry="3.5" fill="#1e293b" />
-          <line x1="50" y1="59" x2="50" y2="65" stroke="#1e293b" strokeWidth="2" />
-        </svg>
-      </div>
-
-      {/* Top Main Navigation Bar */}
-      <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 border-b border-slate-200/70 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          {/* Brand Logo */}
-          <div className="flex items-center space-x-2.5">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center text-white shadow-md shadow-teal-500/20">
-              <Heart size={20} fill="white" className="text-white" />
-            </div>
+    <div className="min-h-screen w-full bg-surface-ground text-ink-primary flex flex-col">
+      {/* Top Workspace Header — Glazed Slate Ceramic Shell */}
+      <header className="sticky top-0 z-40 w-full bg-shell-bg text-shell-ink border-b border-shell-header-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 min-h-16 py-2 flex flex-wrap items-center justify-between gap-3">
+          {/* Brand Logo — Bespoke Collar-Tag Emblem */}
+          <div className="order-1 flex items-center gap-3">
+            <svg
+              viewBox="0 0 36 36"
+              className="w-9 h-9 flex-shrink-0"
+              aria-hidden="true"
+            >
+              <circle cx="18" cy="18" r="17" fill="#B84A2D" stroke="#F4F2ED" strokeWidth="1.5" />
+              <circle cx="18" cy="5.5" r="1.75" fill="#1E3A4C" stroke="#F4F2ED" strokeWidth="1" />
+              <ellipse cx="18" cy="21.5" rx="5.2" ry="4.4" fill="#FAF9F6" />
+              <circle cx="11.5" cy="15.5" r="2.1" fill="#FAF9F6" />
+              <circle cx="15.5" cy="12.5" r="2.1" fill="#FAF9F6" />
+              <circle cx="20.5" cy="12.5" r="2.1" fill="#FAF9F6" />
+              <circle cx="24.5" cy="15.5" r="2.1" fill="#FAF9F6" />
+            </svg>
             <div>
-              <span className="text-base sm:text-lg font-black tracking-tight bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-600 bg-clip-text text-transparent block leading-tight">
+              <span className="text-base font-bold tracking-[0.04em] text-shell-ink-bright block leading-tight">
                 PETCARE
               </span>
-              <span className="text-[10px] text-slate-400 font-medium tracking-wide">
-                Phòng Khám & Spa Thú Cưng
+              <span className="text-[11px] text-shell-muted font-medium tracking-wide block">
+                Phòng Khám &amp; Spa Thú Cưng
               </span>
             </div>
           </div>
 
-          {/* Navigation Tabs Pill Switcher */}
-          <nav className="flex items-center bg-slate-100/90 p-1 rounded-2xl border border-slate-200/60 shadow-inner">
-            <button
-              onClick={() => setActiveTab('chat')}
-              className={`flex items-center space-x-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer select-none ${
-                activeTab === 'chat'
-                  ? 'bg-teal-500 text-white shadow-sm shadow-teal-500/25'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
-              }`}
-            >
-              <MessageSquare size={16} />
-              <span>Tư Vấn AI</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('booking')}
-              className={`flex items-center space-x-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer select-none relative ${
-                activeTab === 'booking'
-                  ? 'bg-teal-500 text-white shadow-sm shadow-teal-500/25'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
-              }`}
-            >
-              <CalendarCheck size={16} />
-              <span>Đặt Lịch Hẹn</span>
-              <span className="hidden sm:inline-flex px-1.5 py-0.2 rounded-full text-[9px] font-black bg-amber-400 text-amber-950 uppercase tracking-tighter">
-                HOT
-              </span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('lookup')}
-              className={`flex items-center space-x-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer select-none ${
-                activeTab === 'lookup'
-                  ? 'bg-teal-500 text-white shadow-sm shadow-teal-500/25'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
-              }`}
-            >
-              <Search size={16} />
-              <span>Tra Cứu</span>
-            </button>
+          {/* Workflow Navigation Tabs */}
+          <nav
+            role="tablist"
+            aria-label="Chức năng chính Petcare"
+            className="order-3 lg:order-2 flex items-center bg-shell-surface p-1 rounded-[10px] border border-shell-border w-full lg:w-auto justify-between lg:justify-start"
+          >
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.key;
+              return (
+                <button
+                  key={tab.key}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => changeTab(tab.key)}
+                  className={`relative flex-1 lg:flex-initial flex items-center justify-center gap-1.5 px-3 sm:px-4 min-h-9 py-1.5 rounded-[7px] text-xs sm:text-sm font-semibold transition-colors cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-shell-ink-bright ${
+                    isActive
+                      ? 'text-white'
+                      : 'text-shell-tab-idle hover:text-white hover:bg-shell-hover'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="active-tab-pill"
+                      className="absolute inset-0 rounded-[7px] bg-accent-collar"
+                      transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  <span className="relative z-10 flex items-center gap-1.5">
+                    {tab.icon}
+                    <span className="whitespace-nowrap">{tab.label}</span>
+                  </span>
+                </button>
+              );
+            })}
           </nav>
+
+          {/* Theme Mode Toggle */}
+          <div className="order-2 lg:order-3 flex items-center">
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
       {/* Main Content Area */}
-      <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 z-10 flex flex-col justify-start">
-        <AnimatePresence mode="wait">
-          {activeTab === 'chat' && (
-            <motion.div
-              key="tab-chat"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
-              className="w-full max-w-5xl mx-auto flex flex-col h-[calc(100vh-120px)] min-h-[500px]"
-            >
-              <ChatBox />
-            </motion.div>
-          )}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-5 sm:py-6 flex flex-col justify-start">
+        {activeTab === 'chat' && (
+          <motion.div
+            key="tab-chat"
+            initial={hasSwitched ? { opacity: 0, x: reduce ? 0 : direction * 12 } : false}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.22, ease: EASE_OUT }}
+            className="w-full flex flex-col"
+          >
+            <ChatBox
+              weightKg={weightKg}
+              onOpenBooking={handleOpenBooking}
+            />
+          </motion.div>
+        )}
 
-          {activeTab === 'booking' && (
-            <motion.div
-              key="tab-booking"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
-              className="w-full pb-12"
-            >
-              <BookingContainer
-                prefillService={prefillService}
-                onSwitchToChat={() => setActiveTab('chat')}
-              />
-            </motion.div>
-          )}
+        {activeTab === 'booking' && (
+          <motion.div
+            key="tab-booking"
+            initial={hasSwitched ? { opacity: 0, x: reduce ? 0 : direction * 12 } : false}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.22, ease: EASE_OUT }}
+            className="w-full pb-12"
+          >
+            <BookingContainer
+              prefillService={prefillService}
+              initialPetType={petType}
+              initialWeightKg={weightKg}
+              onSwitchToChat={() => changeTab('chat')}
+            />
+          </motion.div>
+        )}
 
-          {activeTab === 'lookup' && (
-            <motion.div
-              key="tab-lookup"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
-              className="w-full pb-12"
-            >
-              <BookingLookupTab />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </main>
+        {activeTab === 'lookup' && (
+          <motion.div
+            key="tab-lookup"
+            initial={hasSwitched ? { opacity: 0, x: reduce ? 0 : direction * 12 } : false}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.22, ease: EASE_OUT }}
+            className="w-full pb-12"
+          >
+            <BookingLookupTab />
+          </motion.div>
+        )}
+      </main>
+    </div>
   );
 }

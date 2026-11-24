@@ -1,23 +1,40 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Toaster } from "sonner";
+import { Be_Vietnam_Pro, JetBrains_Mono } from "next/font/google";
 import { QueryProvider } from "../components/providers/QueryProvider";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const beVietnamPro = Be_Vietnam_Pro({
+  variable: "--font-sans-ui",
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono-ui",
+  subsets: ["latin", "vietnamese"],
+  weight: ["500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Petcare - Hệ Thống Chăm Sóc & Đặt Lịch Thú Cưng",
-  description: "Trợ lý ảo RAG thông minh kết hợp hệ thống đặt lịch chăm sóc, spa và khám bệnh thú cưng",
+  title: "Petcare - Phòng Khám & Spa Thú Cưng",
+  description:
+    "Trợ lý chăm sóc thú cưng kết hợp đặt lịch spa, khám bệnh và lưu trú thú cưng trực tuyến",
 };
+
+const themeInitScript = `
+(function() {
+  try {
+    var stored = localStorage.getItem('petcare-theme');
+    if (stored === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  } catch (e) {}
+})();
+`;
 
 export default function RootLayout({
   children,
@@ -27,13 +44,14 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${geistSans.variable} ${geistMono.variable} min-h-full antialiased`}
+      suppressHydrationWarning
+      className={`${beVietnamPro.variable} ${jetbrainsMono.variable} min-h-full antialiased`}
     >
-      <body className="min-h-screen flex flex-col">
-        <QueryProvider>
-          {children}
-          <Toaster position="top-right" richColors closeButton />
-        </QueryProvider>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="min-h-screen flex flex-col bg-surface-ground text-ink-primary font-sans">
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
