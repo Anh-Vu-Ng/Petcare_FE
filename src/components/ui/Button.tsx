@@ -1,35 +1,42 @@
-import * as React from "react"
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import * as React from "react";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'ghost' | 'icon';
+  variant?: "default" | "secondary" | "outline" | "ghost" | "icon";
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'default', ...props }, ref) => {
+  ({ className, variant = "default", ...props }, ref) => {
     return (
       <button
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+          "inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-card disabled:pointer-events-none disabled:opacity-50 cursor-pointer select-none",
           {
-            "bg-blue-600 text-white hover:bg-blue-700 h-10 px-4 py-2 shadow-sm": variant === 'default',
-            "hover:bg-gray-100 hover:text-gray-900 text-gray-600 h-10 px-4 py-2": variant === 'ghost',
-            "h-10 w-10 p-2 text-white bg-blue-600 hover:bg-blue-700 shadow-sm": variant === 'icon',
+            "bg-accent-collar text-white hover:bg-accent-collar-hover h-10 px-4 py-2":
+              variant === "default",
+            "bg-shell-bg text-shell-ink-bright hover:bg-shell-surface h-10 px-4 py-2":
+              variant === "secondary",
+            "border border-strong bg-surface-card text-ink-primary hover:bg-surface-subtle h-10 px-4 py-2":
+              variant === "outline",
+            "text-ink-secondary hover:bg-surface-subtle hover:text-ink-primary h-10 px-4 py-2":
+              variant === "ghost",
+            "h-10 w-10 p-2 bg-accent-collar text-white hover:bg-accent-collar-hover":
+              variant === "icon",
           },
           className
         )}
         {...props}
       />
-    )
+    );
   }
-)
-Button.displayName = "Button"
+);
+Button.displayName = "Button";
 
-export { Button }
+export { Button };

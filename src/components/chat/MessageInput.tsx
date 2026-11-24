@@ -15,7 +15,6 @@ export function MessageInput({ onSendMessage, isLoading }: MessageInputProps) {
     if (content.trim() && !isLoading) {
       onSendMessage(content.trim());
       setContent('');
-      // Reset height
       if (textareaRef.current) {
         textareaRef.current.style.height = 'inherit';
       }
@@ -31,55 +30,57 @@ export function MessageInput({ onSendMessage, isLoading }: MessageInputProps) {
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
-    // Auto expand textarea
     if (textareaRef.current) {
       textareaRef.current.style.height = 'inherit';
       const computed = window.getComputedStyle(textareaRef.current);
-      const height = parseInt(computed.getPropertyValue('border-top-width'), 10)
-        + parseInt(computed.getPropertyValue('padding-top'), 10)
-        + textareaRef.current.scrollHeight
-        + parseInt(computed.getPropertyValue('padding-bottom'), 10)
-        + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+      const height =
+        parseInt(computed.getPropertyValue('border-top-width'), 10) +
+        parseInt(computed.getPropertyValue('padding-top'), 10) +
+        textareaRef.current.scrollHeight +
+        parseInt(computed.getPropertyValue('padding-bottom'), 10) +
+        parseInt(computed.getPropertyValue('border-bottom-width'), 10);
 
-      textareaRef.current.style.height = `${Math.min(height, 150)}px`;
+      textareaRef.current.style.height = `${Math.min(height, 144)}px`;
     }
   };
 
+  const canSend = Boolean(content.trim() && !isLoading);
+
   return (
-    <div className="p-4 bg-white border-t border-slate-100 relative z-10 w-full">
-      <div className="w-full relative">
-        {/* Glowing RGB Neon border capsule (White background inner) */}
-        <div className="relative flex items-end bg-white rgb-neon-border rounded-3xl p-2 pl-4 pr-3 shadow-md">
+    <div className="p-3.5 sm:p-4 bg-surface-card border-t border-rim w-full flex-shrink-0">
+      <div className="max-w-3xl mx-auto">
+        <div className="flex items-end gap-2 bg-surface-pure border border-strong focus-within:border-control-active-border focus-within:ring-2 focus-within:ring-focus-ring/20 rounded-[12px] pl-3.5 pr-2 py-2 transition-colors">
           <textarea
             ref={textareaRef}
             value={content}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
-            placeholder="Bạn có điều gì cần giúp đỡ hong ..."
-            className="flex-1 max-h-[150px] min-h-[40px] py-2 bg-transparent resize-none focus:outline-none overflow-y-auto text-slate-800 placeholder-slate-400 text-sm sm:text-base leading-relaxed scrollbar-none"
+            placeholder="Hỏi về chăm sóc, spa hoặc đặt lịch..."
+            aria-label="Nhập câu hỏi tư vấn chăm sóc thú cưng"
+            className="flex-1 max-h-[144px] min-h-[38px] py-1.5 bg-transparent resize-none focus:outline-none overflow-y-auto text-ink-primary placeholder-ink-muted text-sm sm:text-[15px] leading-relaxed no-scrollbar"
             rows={1}
             disabled={isLoading}
           />
-          
-          {/* Action icons row inside input capsule */}
-          <div className="flex items-center h-10 ml-2">
-            <button
-              onClick={handleSend}
-              disabled={!content.trim() || isLoading}
-              className={cn(
-                "p-2 rounded-full transition-all duration-300 active:scale-90 flex-shrink-0 cursor-pointer",
-                content.trim() && !isLoading
-                  ? "bg-gradient-to-tr from-teal-500 to-blue-500 text-white shadow-md shadow-teal-500/10 hover:brightness-110"
-                  : "bg-slate-100 text-slate-300 disabled:cursor-not-allowed"
-              )}
-            >
-              <SendHorizontal size={18} />
-            </button>
-          </div>
+
+          <button
+            type="button"
+            onClick={handleSend}
+            disabled={!canSend}
+            aria-label="Gửi tin nhắn"
+            className={cn(
+              'h-9 px-3.5 rounded-[9px] transition-colors flex items-center justify-center gap-1.5 text-xs font-semibold flex-shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring',
+              canSend
+                ? 'bg-accent-collar hover:bg-accent-collar-hover text-white'
+                : 'bg-surface-subtle text-ink-disabled disabled:cursor-not-allowed'
+            )}
+          >
+            <span className="hidden sm:inline">Gửi</span>
+            <SendHorizontal size={15} />
+          </button>
         </div>
-      </div>
-      <div className="text-center mt-2 text-[10px] text-slate-400 tracking-wide select-none">
-        Petcare chatbot có thể đưa ra thông tin không chính xác. Hãy đưa pet tới cửa hàng để được chăm sóc tốt nhất nhé!
+        <p className="text-center mt-2 text-[11px] text-ink-muted">
+          Thông tin tư vấn mang tính tham khảo. Với biểu hiện bất thường, vui lòng đặt lịch để bác sĩ thú y thăm khám trực tiếp.
+        </p>
       </div>
     </div>
   );
